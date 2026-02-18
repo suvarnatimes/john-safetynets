@@ -2,14 +2,14 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { LayoutGrid, ZoomIn, X, ChevronLeft, ChevronRight, Share2, Download, ArrowRight, Shield, Zap, Target } from "lucide-react"
+import { LayoutGrid, ZoomIn, X, ChevronLeft, ChevronRight, Share2, Download, ArrowRight, Shield, Zap, Target, Loader2 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { InteractiveGrid } from "@/components/ui/interactive-grid"
 
-const images = [
+const staticImages = [
     { src: "/Invisible Grill Balcony Safety Nets.jpg", title: "Premium Invisible Grill", category: "Invisible Grills", client: "Residential Villa" },
     { src: "/Invisible Pigeon Net.jpg", title: "Pigeon Protection System", category: "Bird Protection", client: "Modern Apartment" },
     { src: "/Sports Practice Nets.jpg", title: "Professional Cricket Cage", category: "Sports Nets", client: "Sports Academy" },
@@ -27,17 +27,38 @@ const images = [
 
 export default function GalleryPage() {
     const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
+    const [displayImages, setDisplayImages] = useState(staticImages)
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        async function fetchImages() {
+            try {
+                // Fetch from Cloudinary Search API via a Server Action or internal API
+                // For simplicity in this demo, we use a fetch to a future route
+                const response = await fetch('/api/gallery')
+                const data = await response.json()
+                if (data && data.length > 0) {
+                    setDisplayImages([...data, ...staticImages])
+                }
+            } catch (error) {
+                console.log("Cloudinary fetch failed, using static assets only.")
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetchImages()
+    }, [])
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (selectedImageIndex === null) return
             if (e.key === "Escape") setSelectedImageIndex(null)
-            if (e.key === "ArrowLeft") setSelectedImageIndex((prev) => (prev! - 1 + images.length) % images.length)
-            if (e.key === "ArrowRight") setSelectedImageIndex((prev) => (prev! + 1) % images.length)
+            if (e.key === "ArrowLeft") setSelectedImageIndex((prev) => (prev! - 1 + displayImages.length) % displayImages.length)
+            if (e.key === "ArrowRight") setSelectedImageIndex((prev) => (prev! + 1) % displayImages.length)
         }
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [selectedImageIndex])
+    }, [selectedImageIndex, displayImages])
 
     return (
         <main className="min-h-screen bg-white pt-32 pb-24 relative overflow-hidden">
@@ -72,41 +93,48 @@ export default function GalleryPage() {
                 </div>
 
                 {/* Gallery Wall */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {images.map((img, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="group relative h-[450px] rounded-[2.5rem] overflow-hidden border border-slate-200 bg-slate-50 cursor-pointer"
-                            onClick={() => setSelectedImageIndex(idx)}
-                        >
-                            <Image
-                                src={img.src}
-                                alt={img.title}
-                                fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
+                {isLoading ? (
+                    <div className="flex flex-col items-center justify-center py-32 space-y-4">
+                        <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+                        <span className="text-slate-400 font-bold uppercase tracking-widest text-xs">Synchronizing Media Matrix...</span>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {displayImages.map((img, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: (idx % 6) * 0.1 }}
+                                className="group relative h-[450px] rounded-[2.5rem] overflow-hidden border border-slate-200 bg-slate-50 cursor-pointer"
+                                onClick={() => setSelectedImageIndex(idx)}
+                            >
+                                <Image
+                                    src={img.src}
+                                    alt={img.title}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
 
-                            {/* Technical Overlay */}
-                            <div className="absolute inset-x-4 bottom-4 glass-tech rounded-[2rem] p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{img.category}</span>
-                                    <ZoomIn className="w-4 h-4 text-slate-400" />
-                                </div>
-                                <h3 className="text-lg font-bold text-slate-900 tracking-tight">{img.title}</h3>
-                                <div className="mt-4 flex items-center justify-between">
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Client: {img.client}</span>
-                                    <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
-                                        <ArrowRight className="w-4 h-4" />
+                                {/* Technical Overlay */}
+                                <div className="absolute inset-x-4 bottom-4 glass-tech rounded-[2rem] p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{img.category}</span>
+                                        <ZoomIn className="w-4 h-4 text-slate-400" />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-slate-900 tracking-tight">{img.title}</h3>
+                                    <div className="mt-4 flex items-center justify-between">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Client: {img.client}</span>
+                                        <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+                                            <ArrowRight className="w-4 h-4" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
 
                 {/* Final Callout */}
                 <div className="mt-32 p-12 md:p-24 bg-slate-50 border border-slate-200 rounded-[3.5rem] text-center relative overflow-hidden">
@@ -145,17 +173,17 @@ export default function GalleryPage() {
                         <div className="relative w-full max-w-6xl flex flex-col md:flex-row gap-12 items-center" onClick={(e) => e.stopPropagation()}>
                             <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[70vh] rounded-[3rem] overflow-hidden border border-slate-200 shadow-2xl shrink-0">
                                 <Image
-                                    src={images[selectedImageIndex].src}
-                                    alt={images[selectedImageIndex].title}
+                                    src={displayImages[selectedImageIndex].src}
+                                    alt={displayImages[selectedImageIndex].title}
                                     fill
                                     className="object-cover"
                                 />
                             </div>
 
                             <div className="flex flex-col text-left max-w-sm">
-                                <span className="text-blue-600 text-xs font-black tracking-[0.3em] uppercase mb-4">{images[selectedImageIndex].category}</span>
-                                <h3 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight leading-[1]">{images[selectedImageIndex].title}</h3>
-                                <p className="text-slate-500 font-medium mb-12">Project technical data: 316-grade stainless steel cables, impact-tested for residential high-rise standards.</p>
+                                <span className="text-blue-600 text-xs font-black tracking-[0.3em] uppercase mb-4">{displayImages[selectedImageIndex].category}</span>
+                                <h3 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight leading-[1]">{displayImages[selectedImageIndex].title}</h3>
+                                <p className="text-slate-500 font-medium mb-12">Project technical data: High-tensile safety systems, impact-tested for international residential standards.</p>
 
                                 <div className="space-y-6 mb-12">
                                     <div className="flex items-center justify-between border-b border-slate-100 pb-2">
@@ -180,7 +208,7 @@ export default function GalleryPage() {
                                 className="w-16 h-16 rounded-2xl border border-slate-200 bg-white flex items-center justify-center text-slate-900 hover:bg-slate-100 transition-colors"
                                 onClick={(e) => {
                                     e.stopPropagation()
-                                    setSelectedImageIndex((prev) => (prev! - 1 + images.length) % images.length)
+                                    setSelectedImageIndex((prev) => (prev! - 1 + displayImages.length) % displayImages.length)
                                 }}
                             >
                                 <ChevronLeft className="w-8 h-8" />
@@ -189,7 +217,7 @@ export default function GalleryPage() {
                                 className="w-16 h-16 rounded-2xl border border-slate-200 bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition-colors"
                                 onClick={(e) => {
                                     e.stopPropagation()
-                                    setSelectedImageIndex((prev) => (prev! + 1) % images.length)
+                                    setSelectedImageIndex((prev) => (prev! + 1) % displayImages.length)
                                 }}
                             >
                                 <ChevronRight className="w-8 h-8" />
