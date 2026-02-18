@@ -135,7 +135,7 @@ function ScrollRow({
         {duplicatedImages.map((src, idx) => (
           <div
             key={idx}
-            className="relative aspect-[4/3] h-full w-auto min-w-[200px] rounded-2xl overflow-hidden border border-slate-200"
+            className="relative aspect-[4/3] h-full w-auto min-w-[200px] rounded-2xl overflow-hidden border border-slate-200 shrink-0"
           >
             <Image
               src={src}

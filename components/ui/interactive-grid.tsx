@@ -198,6 +198,7 @@ const InteractivePath = ({
     return (
         <path
             ref={pathRef}
+            d="" // Initialize with empty path
             fill="none"
             stroke="currentColor"
             strokeWidth="0.8"
