@@ -114,6 +114,7 @@ export default function GalleryPage() {
                                     src={img.src}
                                     alt={img.title}
                                     fill
+                                    priority={idx < 4}
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
 
