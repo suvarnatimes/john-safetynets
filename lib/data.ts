@@ -186,37 +186,6 @@ export const services = [
         isFeatured: false
     },
     {
-        slug: "childrens-safety-nets",
-        title: "Children's Safety Nets",
-        desc: "Ensure your children's safety on balconies and open areas.",
-        fullDesc: "Protect your little ones from accidental falls with our robust Children's Safety Nets. Installed securely on balconies, windows, and staircases, these nets provide peace of mind.",
-        longDescription: "Child safety is the number one priority for any parent living in a high-rise. 'Kids will be kids' - their curiosity often leads them to dangerous edges. Our Children's Safety Nets act as a silent guardian. Unlike grills which can be climbed, our nets have small gaps that provide no toe-hold for climbing, yet are strong enough to catch a falling child. They are soft to the touch so they won't cause scrape injuries like metal wires.",
-        benefits: [
-            "Fall Protection: Can catch impacts effectively.",
-            "Anti-Climb: Mesh design discourages climbing attempts.",
-            "Soft Impact: Nylon material is forgiving on skin.",
-            "Peace of Mind: Let children play freely near balconies.",
-            "Removable: Can be uninstalled when children grow up."
-        ],
-        process: [
-            { step: "Hazard Audit", desc: "Identifying all potential fall zones." },
-            { step: "Heavy Drilling", desc: "Installing heavy-duty J-hooks every 6-8 inches." },
-            { step: "Rope Lacing", desc: "Interlocking the net with a border rope." },
-            { step: "Tightening", desc: "Ensuring the net is drum-tight." },
-            { step: "Stress Test", desc: "Manually pulling to verify secure anchorage." }
-        ],
-        specifications: [
-            { label: "Material", value: "High-strength Nylon" },
-            { label: "Yarn Breaking Strength", value: "140kg per yarn" },
-            { label: "Mesh Size", value: "40mm x 40mm (Too small for heads)" },
-            { label: "Melting Point", value: "200°C" },
-            { label: "Certification", value: "Tested for fall arrest standards" }
-        ],
-        features: ["Child-Safe Material", "High Impact Resistance", "Clear Visibility", "Secure Fixings"],
-        image: "/Children's Safety Nets.jpg",
-        isFeatured: false
-    },
-    {
         slug: "pets-safety-nets",
         title: "Pets Safety Nets",
         desc: "Protect your beloved pets from accidental falls.",
@@ -248,37 +217,6 @@ export const services = [
         isFeatured: false
     },
     {
-        slug: "staircase-safety-nets",
-        title: "Staircase Safety Nets",
-        desc: "Prevent accidents on open staircases with our strong nets.",
-        fullDesc: "Essential for homes with children or elderly residents. Our Staircase Safety Nets cover the open gaps between railings, preventing accidents without blocking light.",
-        longDescription: "Modern staircases with wide gaps between railings or spiral designs are aesthetically pleasing but dangerous for toddlers and pets. A slip or trip can result in a fall through the gaps. Our Staircase Safety Nets wrap securely around the bannisters and rise to the ceiling if necessary, acting as a soft, transparent wall that catches anyone who falls, effectively child-proofing your stairs.",
-        benefits: [
-            "Gap Coverage: Seals dangerous open spaces between railings.",
-            "Soft Catch: Absorbs impact energy gently.",
-            "Aesthetic: Neutral colors blend with interior decor.",
-            "Removable: Can be taken down for cleaning.",
-            "Custom Fit: Moulds to curved or spiral staircases."
-        ],
-        process: [
-            { step: "Measuring", desc: "Calculating the total area of the staircase void." },
-            { step: "Anchoring", desc: "Using non-invasive ties or hooks on railings." },
-            { step: "Draping", desc: "Draping the net from top to bottom." },
-            { step: "Securing", desc: "Tying off each mesh point to the handrail." },
-            { step: "Trimming", desc: "Cutting excess net for a neat finish." }
-        ],
-        specifications: [
-            { label: "Material", value: "Soft Nylon Braid" },
-            { label: "Mesh Size", value: "25mm diamond mesh" },
-            { label: "Color", value: "White / Off-White / Black" },
-            { label: "Breaking Load", value: "200kg" },
-            { label: "Installation", value: "Zip-ties or Hook method" }
-        ],
-        features: ["Strong Mesh", "Secure Installation", "Aesthetic Design", "Safety Assured"],
-        image: "/safety nets for the Staircase.jpg",
-        isFeatured: false
-    },
-    {
         slug: "mosquito-nets",
         title: "Mosquito Nets",
         desc: "Keep disease-carrying mosquitoes away while allowing fresh air.",
@@ -307,68 +245,6 @@ export const services = [
         ],
         features: ["Fine Mesh", "Durable Frame", "Velcro/Magnetic Options", "Washable"],
         image: "/Mosquito Nets.jpg",
-        isFeatured: false
-    },
-    {
-        slug: "industrial-safety-nets",
-        title: "Industrial Safety Nets",
-        desc: "Heavy-duty nets for construction sites and industrial factories.",
-        fullDesc: "Ensuring workplace safety is paramount. Our Industrial Safety Nets are designed to catch falling debris and protect workers at heights.",
-        longDescription: "In construction and warehousing, falls from heights are the leading cause of accidents. Our Industrial Safety Nets act as a collective fall arrest system. They are mandatory for high-rise construction to catch falling debris (preventing injury to public) and falling workers. We use heavy-duty, double-layered nets that meet IS and EN safety standards.",
-        benefits: [
-            "Life Saving: Catches workers falling from heights.",
-            "Debris Containment: Prevents tools/bricks hitting people below.",
-            "Compliance: Helps meet safety regulations and audits.",
-            "High Load: Capable of stopping heavy dynamic loads.",
-            "UV Treated: Withstands long exposure to sun at sites."
-        ],
-        process: [
-            { step: "Safety Plan", desc: "Mapping out the net coverage plan." },
-            { step: "Anchor Points", desc: "Identifying structural beams for anchoring." },
-            { step: "Rigging", desc: "Using steel wire ropes to create a support grid." },
-            { step: "Net Installation", desc: "Spreading and clipping the nets to the rigging." },
-            { step: "Certification", desc: "Issuing a fit-for-purpose safety certificate." }
-        ],
-        specifications: [
-            { label: "Material", value: "High Tenacity Polypropylene (PPMF)" },
-            { label: "Layers", value: "Dual Layer (Safety Net + Debris Liner)" },
-            { label: "Rope Dia", value: "4mm to 10mm" },
-            { label: "Mesh Size", value: "100mm (Man) / 20mm (Debris)" },
-            { label: "Standard", value: "IS 11057 : 1984 Certified" }
-        ],
-        features: ["High Load Capacity", "ISO Certified", "Construction Safe", "Fall Protection"],
-        image: "/Industrial Safety Nets 1.jpg",
-        isFeatured: false
-    },
-    {
-        slug: "forming-nets",
-        title: "Forming Nets",
-        desc: "Specialized netting solutions for construction and agricultural use.",
-        fullDesc: "Versatile netting solutions for various applications including construction forming, agricultural shading, and more.",
-        longDescription: "Forming nets are specialized containment solutions. In agriculture, they are used as shade nets or trellis supports for creepers. In construction, they effectively screen off scaffolding to prevent dust pollution and provide privacy. We offer a range of densities (shade factors) from 50% to 90% depending on the specific application requirement.",
-        benefits: [
-            "Dust Control: Contains construction dust within the site.",
-            "Shading: Protects crops or workers from harsh sun.",
-            "Privacy: visual barrier for ongoing work.",
-            "Wind Breaker: Reduces wind speed in open areas.",
-            "Cost Effective: Cheap solution for large area coverage."
-        ],
-        process: [
-            { step: "Measurement", desc: "Measuring the scaffolding or greenhouse area." },
-            { step: "Selection", desc: "Choosing shade factor (e.g., 75% Green Net)." },
-            { step: "Fastening", desc: "Using cable ties to fix net to poles/scaffolds." },
-            { step: "Joining", desc: "Stitching multiple sheets for large widths." },
-            { step: "Inspection", desc: "Ensuring no loose ends flap in the wind." }
-        ],
-        specifications: [
-            { label: "Material", value: "HDPE Tape" },
-            { label: "Shade Factor", value: "50%, 75%, 90%" },
-            { label: "Color", value: "Green / Black / White" },
-            { label: "GSM", value: "90 GSM to 150 GSM" },
-            { label: "UV Stabilized", value: "Yes" }
-        ],
-        features: ["Multi-purpose", "Weather Resistant", "Cost Effective", "Customizable"],
-        image: "/farming nets.jpg",
         isFeatured: false
     },
     {
@@ -463,5 +339,67 @@ export const services = [
         features: ["Sleek Aesthetics", "Vertical Fall Protection", "Custom Finishes", "Space Enhancing"],
         image: "/staircase invisible grills.jpg",
         isFeatured: true
+    },
+    {
+        slug: "forming-nets",
+        title: "Forming Nets",
+        desc: "Specialized netting solutions for construction and agricultural use.",
+        fullDesc: "Versatile netting solutions for various applications including construction forming, agricultural shading, and more.",
+        longDescription: "Forming nets are specialized containment solutions. In agriculture, they are used as shade nets or trellis supports for creepers. In construction, they effectively screen off scaffolding to prevent dust pollution and provide privacy. We offer a range of densities (shade factors) from 50% to 90% depending on the specific application requirement.",
+        benefits: [
+            "Dust Control: Contains construction dust within the site.",
+            "Shading: Protects crops or workers from harsh sun.",
+            "Privacy: visual barrier for ongoing work.",
+            "Wind Breaker: Reduces wind speed in open areas.",
+            "Cost Effective: Cheap solution for large area coverage."
+        ],
+        process: [
+            { step: "Measurement", desc: "Measuring the scaffolding or greenhouse area." },
+            { step: "Selection", desc: "Choosing shade factor (e.g., 75% Green Net)." },
+            { step: "Fastening", desc: "Using cable ties to fix net to poles/scaffolds." },
+            { step: "Joining", desc: "Stitching multiple sheets for large widths." },
+            { step: "Inspection", desc: "Ensuring no loose ends flap in the wind." }
+        ],
+        specifications: [
+            { label: "Material", value: "HDPE Tape" },
+            { label: "Shade Factor", value: "50%, 75%, 90%" },
+            { label: "Color", value: "Green / Black / White" },
+            { label: "GSM", value: "90 GSM to 150 GSM" },
+            { label: "UV Stabilized", value: "Yes" }
+        ],
+        features: ["Multi-purpose", "Weather Resistant", "Cost Effective", "Customizable"],
+        image: "/farming nets.jpg",
+        isFeatured: false
+    },
+    {
+        slug: "industrial-safety-nets",
+        title: "Industrial Safety Nets",
+        desc: "Heavy-duty nets for construction sites and industrial factories.",
+        fullDesc: "Ensuring workplace safety is paramount. Our Industrial Safety Nets are designed to catch falling debris and protect workers at heights.",
+        longDescription: "In construction and warehousing, falls from heights are the leading cause of accidents. Our Industrial Safety Nets act as a collective fall arrest system. They are mandatory for high-rise construction to catch falling debris (preventing injury to public) and falling workers. We use heavy-duty, double-layered nets that meet IS and EN safety standards.",
+        benefits: [
+            "Life Saving: Catches workers falling from heights.",
+            "Debris Containment: Prevents tools/bricks hitting people below.",
+            "Compliance: Helps meet safety regulations and audits.",
+            "High Load: Capable of stopping heavy dynamic loads.",
+            "UV Treated: Withstands long exposure to sun at sites."
+        ],
+        process: [
+            { step: "Safety Plan", desc: "Mapping out the net coverage plan." },
+            { step: "Anchor Points", desc: "Identifying structural beams for anchoring." },
+            { step: "Rigging", desc: "Using steel wire ropes to create a support grid." },
+            { step: "Net Installation", desc: "Spreading and clipping the nets to the rigging." },
+            { step: "Certification", desc: "Issuing a fit-for-purpose safety certificate." }
+        ],
+        specifications: [
+            { label: "Material", value: "High Tenacity Polypropylene (PPMF)" },
+            { label: "Layers", value: "Dual Layer (Safety Net + Debris Liner)" },
+            { label: "Rope Dia", value: "4mm to 10mm" },
+            { label: "Mesh Size", value: "100mm (Man) / 20mm (Debris)" },
+            { label: "Standard", value: "IS 11057 : 1984 Certified" }
+        ],
+        features: ["High Load Capacity", "ISO Certified", "Construction Safe", "Fall Protection"],
+        image: "/Industrial Safety Nets 1.jpg",
+        isFeatured: false
     }
 ]

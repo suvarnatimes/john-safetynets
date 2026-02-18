@@ -72,7 +72,7 @@ export default function AdminUploadPage() {
                 <div className="bg-slate-50 border border-slate-200 rounded-[3rem] p-12 md:p-24 text-center">
                     <div className="max-w-xl mx-auto">
                         <CldUploadWidget
-                            uploadPreset="1bb8c3061a2f5e11dc5855818d6ccd"
+                            signatureEndpoint="/api/sign-cloudinary-params"
                             onSuccess={(result) => {
                                 setStatus("success")
                                 console.log("Upload Success:", result)
@@ -104,12 +104,22 @@ export default function AdminUploadPage() {
                                 }
                             }}
                         >
-                            {({ open }) => {
+                            {({ open, widget, results }) => {
+                                console.log("Cloudinary Widget State:", {
+                                    widgetReady: !!widget,
+                                    envCloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+                                });
                                 return (
                                     <button
-                                        onClick={() => {
-                                            setStatus("uploading")
-                                            open()
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            if (open) {
+                                                setStatus("uploading")
+                                                open();
+                                            } else {
+                                                console.error("Widget not ready");
+                                                alert("Upload widget is initializing, please try again.");
+                                            }
                                         }}
                                         className="group relative w-full aspect-square md:aspect-[16/9] bg-white border-2 border-dashed border-slate-200 rounded-[2.5rem] flex flex-col items-center justify-center gap-6 hover:border-blue-600 hover:bg-blue-50/50 transition-all duration-500"
                                     >
