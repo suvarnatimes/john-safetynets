@@ -371,4 +371,97 @@ export const services = [
         image: "/farming nets.jpg",
         isFeatured: false
     },
+    {
+        slug: "invisible-childrens-safety",
+        title: "Invisible Children's Safety",
+        desc: "Advanced protection for children on balconies and windows without visual clutter.",
+        fullDesc: "Our Invisible Children's Safety systems provide a robust, high-tensile barrier engineered specifically for high-rise protection. It combines the strength of steel with the transparency of modern design.",
+        longDescription: "Child safety is paramount in high-rise living. Our Invisible Children's Safety grills use 316-grade stainless steel cables with a nano-polymer coating. Unlike traditional nets, these are impossible for children to climb and provide a rigid yet transparent barrier. They are designed to withstand significant impact, ensuring your little ones are safe while they play near balconies or windows.",
+        benefits: [
+            "Child-Proof Design: Too thin to climb, too strong to break.",
+            "High impact Resistance: Absorbs energy from accidental pushes.",
+            "Visual Transparency: Maintains the aesthetics of your home.",
+            "Anti-Rust Coating: Long-lasting protection in any weather.",
+            "Professional Fit: Custom-engineered for every opening."
+        ],
+        process: [
+            { step: "Safety Check", desc: "Identifying vulnerable areas for small children." },
+            { step: "Precision Marks", desc: "Marking anchor points at specific safety intervals." },
+            { step: "Rigid Framing", desc: "Installing heavy-duty steel tracks for the cables." },
+            { step: "Tension Matrix", desc: "Tightening each cable to prevent spreading." },
+            { step: "Load Verification", desc: "Simulating impact to ensure absolute safety." }
+        ],
+        specifications: [
+            { label: "Core Material", value: "316 Marine Grade Stainless Steel" },
+            { label: "Coating", value: "High-Density Nano Polymer" },
+            { label: "Cable Tension", value: "Precision calibrated" },
+            { label: "Warranty", value: "5 Years" },
+            { label: "Visibility", value: "98% Transparent from 2 meters" }
+        ],
+        features: ["Child-Safe Engineering", "Anti-Climb Design", "High Impact Capacity", "Nano-Coating"],
+        image: "/invisible childrens safety.jpg",
+        isFeatured: true
+    },
+    {
+        slug: "monkey-safety-nets",
+        title: "Monkey Safety Nets",
+        desc: "Heavy-duty, bite-proof netting designed to keep primates out of residential spaces.",
+        fullDesc: "Specially engineered for urban areas near forests or hills, our Monkey Safety Nets are built to withstand the strength and agility of primates, ensuring your home remains private and secure.",
+        longDescription: "In areas with monkey activity, standard bird nets are insufficient. Our Monkey Safety Nets are manufactured from high-tensile, bite-proof materials that can withstand the weight and pulling force of aggressive primates. We use specialized stainless steel rope cores or reinforced HDPE structures that cannot be torn or untied by monkeys, providing a permanent solution for your balcony and window protection.",
+        benefits: [
+            "Bite-Proof Material: Primary defense against sharp primate teeth.",
+            "Heavy Weight Capacity: Supports the weight of multiple leaping monkeys.",
+            "Claw Resistant: Specialized weave prevents tearing by sharp claws.",
+            "Escape Prevention: Keeps pets in while keeping monkeys out.",
+            "All-Weather Proof: Resistant to direct sun and heavy rain."
+        ],
+        process: [
+            { step: "Site Analysis", desc: "Checking monkey entry paths and entry points." },
+            { step: "Reinforcement", desc: "Installing heavy-duty frames capable of high torque." },
+            { step: "Structural Lacing", desc: "Using steel wire for the primary net borders." },
+            { step: "Triple Knotting", desc: "Ensuring individual mesh points cannot be slid apart." },
+            { step: "Anchorage Check", desc: "Testing wall mount strength against pulling." }
+        ],
+        specifications: [
+            { label: "Material", value: "Stainless Steel Core / Reinforced HDPE" },
+            { label: "Mesh Gauge", value: "Heavy-Duty (3mm - 4mm)" },
+            { label: "Breaking Load", value: "600kg+ Dynamic Load" },
+            { label: "Color", value: "Black / Dark Green" },
+            { label: "Durability", value: "10+ Years Lifespan" }
+        ],
+        features: ["Bite-Proof Core", "High Tear Resistance", "Primates Grade Safety", "Extreme Durability"],
+        image: "/monkey safety nets.jpg",
+        isFeatured: true
+    },
+    {
+        slug: "staircase-invisible-grills",
+        title: "Staircase Invisible Grills",
+        desc: "Modern, sleek safety barriers for open staircases and voids in contemporary homes.",
+        fullDesc: "Staircase Invisible Grills offer a minimal aesthetic for modern interiors. They provide a transparent safety wall for open staircases and voids, preventing falls while maintaining architectural flow.",
+        longDescription: "Contemporary home designs often feature open-well staircases that can be hazardous, especially for children and the elderly. Our Staircase Invisible Grills provide a sleek, near-invisible vertical barrier that replaces bulky wooden or stone railings. Using vertical high-tensile cables, we create a safe environment that doesn't close off the space, allowing light and air to circulate while providing 100% fall protection.",
+        benefits: [
+            "Architectural Flow: Doesn't block light or visual space.",
+            "Vertical Safety: Full-height protection from floor to ceiling.",
+            "Minimalist Design: Blends perfectly with any interior decor.",
+            "Dust Resistant: Doesn't collect dust like traditional wooden slats.",
+            "High Maintenance-Free: Stays shiny and tight for years."
+        ],
+        process: [
+            { step: "Interior Design Check", desc: "Matching grill spacing with interior aesthetics." },
+            { step: "Precision Drilling", desc: "Using wood or marble-grade drills for clean finish." },
+            { step: "Frame Mounting", desc: "Securing the top and bottom metal tracks." },
+            { step: "Cable Installation", desc: "Individually threading cables through tracks." },
+            { step: "Final Alignment", desc: "Ensuring perfect verticality and tension." }
+        ],
+        specifications: [
+            { label: "Cables", value: "316 Grade Stainless Steel (2mm)" },
+            { label: "Spacing", value: "2 inches to 4 inches" },
+            { label: "Tension System", value: "Hidden turnbuckles for clean lines" },
+            { label: "Finish", value: "Chrome / Satin / Powder Coated" },
+            { label: "Safety Standard", value: "Residential Fall Arrest compliant" }
+        ],
+        features: ["Sleek Aesthetics", "Vertical Fall Protection", "Custom Finishes", "Space Enhancing"],
+        image: "/staircase invisible grills.jpg",
+        isFeatured: true
+    }
 ]

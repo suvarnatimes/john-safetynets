@@ -10,12 +10,19 @@ import Link from "next/link"
 import { InteractiveGrid } from "@/components/ui/interactive-grid"
 
 const images = [
-    { src: "https://images.unsplash.com/photo-1595846519845-68e298c2edd8?q=80&w=1000&auto=format&fit=crop", title: "Luxury Balcony Integration", category: "Invisible Grills", client: "Private Villa" },
-    { src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop", title: "Apartment Safety Matrix", category: "Pigeon Nets", client: "Appaswamy Real Estates" },
-    { src: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1000&auto=format&fit=crop", title: "Modern Residential Shield", category: "Residential", client: "Individual Home" },
-    { src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop", title: "Pool Perimeter Safety", category: "Outdoor", client: "Resort Complex" },
-    { src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop", title: "Commercial Safety Netting", category: "Commercial", client: "IT Park Chennai" },
-    { src: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1000&auto=format&fit=crop", title: "Sports Facility Protocol", category: "Sports Nets", client: "Cricket Academy" },
+    { src: "/Invisible Grill Balcony Safety Nets.jpg", title: "Premium Invisible Grill", category: "Invisible Grills", client: "Residential Villa" },
+    { src: "/Invisible Pigeon Net.jpg", title: "Pigeon Protection System", category: "Bird Protection", client: "Modern Apartment" },
+    { src: "/Sports Practice Nets.jpg", title: "Professional Cricket Cage", category: "Sports Nets", client: "Sports Academy" },
+    { src: "/Duct Area Nets.jpg", title: "High-Rise Shaft Safety", category: "Industrial", client: "Commercial Complex" },
+    { src: "/Cloth Hanger Services.jpg", title: "Smart Ceiling Hanger", category: "Utility", client: "Urban Home" },
+    { src: "/Children's Safety Nets.jpg", title: "Child Fall Protection", category: "Child Safety", client: "Private Residence" },
+    { src: "/Pets Safety Nets.jpg", title: "Bite-Proof Pet Barrier", category: "Pet Safety", client: "Garden Apartment" },
+    { src: "/safety nets for the Staircase.jpg", title: "Interior Staircase Net", category: "Interior", client: "Duplex Villa" },
+    { src: "/farming nets.jpg", title: "Agricultural Shade System", category: "Commercial", client: "Farming Unit" },
+    { src: "/invisible childrens safety.jpg", title: "Advanced Child Protection", category: "Child Safety", client: "Luxury High-Rise" },
+    { src: "/monkey safety nets.jpg", title: "Reinforced Monkey Barrier", category: "Primate Grade", client: "Hillside Residence" },
+    { src: "/staircase invisible grills.jpg", title: "Minimalist Staircase Grill", category: "Interior", client: "Modern Home" },
+    { src: "/Industrial Safety Nets 1.jpg", title: "Construction Safety Grid", category: "Industrial", client: "Building Site" },
 ]
 
 export default function GalleryPage() {

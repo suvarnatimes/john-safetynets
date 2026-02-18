@@ -23,7 +23,7 @@ const outfit = Outfit({
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "John Safety Nets | Premium Safety Net Solutions in Chennai",
+  title: "John Enterprises | Premium Safety Net Solutions in Chennai",
   description: "High-quality invisible grills, pigeon nets, sports nets, and more. Professional installation in Chennai.",
   icons: {
     icon: '/logo.ico',

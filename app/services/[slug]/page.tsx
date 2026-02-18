@@ -23,7 +23,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     }
 
     return {
-        title: `${service.title} | John Safety Nets`,
+        title: `${service.title} | John Enterprises`,
         description: service.desc,
     }
 }

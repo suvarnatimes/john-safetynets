@@ -19,12 +19,12 @@ export default function Footer() {
                             <div className="relative w-10 h-10 transition-transform group-hover:scale-110">
                                 <Image
                                     src="/logo.png"
-                                    alt="John Safety Nets Logo"
+                                    alt="John Enterprises Logo"
                                     fill
                                     className="object-contain"
                                 />
                             </div>
-                            <span className="text-xl font-bold tracking-tight text-slate-900">John Safety Nets</span>
+                            <span className="text-xl font-bold tracking-tight text-slate-900">John Enterprises</span>
                         </Link>
                         <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
                             Premium safety solutions engineered for precision. Chennai's leading provider of invisible grills and professional netting systems.
@@ -89,7 +89,7 @@ export default function Footer() {
                                 </div>
                                 <div>
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Email Support</p>
-                                    <p className="text-sm font-bold text-slate-900">info@johnsafetynets.com</p>
+                                    <p className="text-sm font-bold text-slate-900">johnsafetynets7@gmail.com</p>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +97,9 @@ export default function Footer() {
                 </div>
 
                 <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <p className="text-xs font-semibold text-slate-400">© 2024 John Safety Nets. All rights reserved.</p>
+                    <p className="text-xs font-semibold text-slate-400">
+                        © 2024 John Enterprises. All rights reserved. | Developed by <span className="text-blue-600 font-bold uppercase tracking-tighter">AltarVision</span>
+                    </p>
                     <div className="flex items-center gap-8">
                         <Link href="#" className="text-xs font-semibold text-slate-400 hover:text-blue-600 transition-colors">Privacy Policy</Link>
                         <Link href="#" className="text-xs font-semibold text-slate-400 hover:text-blue-600 transition-colors">Terms of Service</Link>

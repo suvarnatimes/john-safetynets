@@ -1,11 +1,36 @@
-"use client"
-
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { Mail, MapPin, Phone, Send, ShieldCheck, Clock, Zap, MessageSquare } from "lucide-react"
 import { InteractiveGrid } from "@/components/ui/interactive-grid"
 
 export default function ContactPage() {
+    const [formData, setFormData] = useState({
+        name: "",
+        phone: "",
+        requirement: "Structural Audit (Invisible Grills)",
+        message: ""
+    })
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        const { name, phone, requirement, message } = formData
+
+        const text = `*New Inquiry from John Enterprises Portfolio*%0A%0A` +
+            `*Name:* ${name}%0A` +
+            `*Phone:* ${phone}%0A` +
+            `*Requirement:* ${requirement}%0A` +
+            `*Message:* ${message}`
+
+        const whatsappUrl = `https://wa.me/917200092393?text=${text}`
+        window.open(whatsappUrl, "_blank")
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target
+        setFormData(prev => ({ ...prev, [name]: value }))
+    }
+
     return (
         <main className="min-h-screen bg-white pt-32 pb-24 relative overflow-hidden">
             <InteractiveGrid className="opacity-20" />
@@ -44,7 +69,7 @@ export default function ContactPage() {
                     <div className="lg:col-span-4 space-y-8">
                         {[
                             { icon: <Phone className="w-6 h-6" />, label: "Direct Support", val: "+91 72000 92393", sub: "Available 9am - 8pm" },
-                            { icon: <Mail className="w-6 h-6" />, label: "Technical Inquiry", val: "info@johnsafetynets.com", sub: "Response within 2 hours" },
+                            { icon: <Mail className="w-6 h-6" />, label: "Technical Inquiry", val: "johnsafetynets7@gmail.com", sub: "Response within 2 hours" },
                             { icon: <MapPin className="w-6 h-6" />, label: "Service Hub", val: "Chennai, Tamil Nadu", sub: "Covering all city zones" }
                         ].map((item, i) => (
                             <div key={i} className="tech-card rounded-[2rem] p-8 flex items-start gap-6">
@@ -53,7 +78,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</div>
-                                    <div className="text-xl font-bold text-slate-900 mb-1">{item.val}</div>
+                                    <div className="text-lg md:text-xl font-bold text-slate-900 mb-1 break-all">{item.val}</div>
                                     <div className="text-xs font-semibold text-slate-500">{item.sub}</div>
                                 </div>
                             </div>
@@ -72,17 +97,25 @@ export default function ContactPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                             <div>
                                 <h3 className="text-2xl font-bold text-slate-900 mb-8 tracking-tight uppercase tracking-tighter">Inquiry Portal</h3>
-                                <form className="space-y-6">
+                                <form className="space-y-6" onSubmit={handleSubmit}>
                                     <div className="space-y-4">
                                         <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Identification</label>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             <input
                                                 type="text"
+                                                name="name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                required
                                                 placeholder="Legal Name"
                                                 className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm placeholder:text-slate-300"
                                             />
                                             <input
                                                 type="tel"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                required
                                                 placeholder="Phone Contact"
                                                 className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm placeholder:text-slate-300"
                                             />
@@ -91,7 +124,12 @@ export default function ContactPage() {
 
                                     <div className="space-y-4">
                                         <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Requirement Matrix</label>
-                                        <select className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm">
+                                        <select
+                                            name="requirement"
+                                            value={formData.requirement}
+                                            onChange={handleChange}
+                                            className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm"
+                                        >
                                             <option>Structural Audit (Invisible Grills)</option>
                                             <option>Safety Assessment (Pigeon Nets)</option>
                                             <option>Professional Facility Netting</option>
@@ -101,13 +139,17 @@ export default function ContactPage() {
                                     <div className="space-y-4">
                                         <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Technical Brief</label>
                                         <textarea
+                                            name="message"
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            required
                                             rows={4}
                                             placeholder="Specify measurements, location, or architectural specifics..."
                                             className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm placeholder:text-slate-300 resize-none"
                                         />
                                     </div>
 
-                                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl py-7">
+                                    <Button type="submit" size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl py-7">
                                         Initialize Protocol <Send className="ml-2 w-4 h-4" />
                                     </Button>
                                 </form>

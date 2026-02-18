@@ -111,9 +111,7 @@ export default function Home() {
               <p className="text-lg text-slate-500 font-medium mb-12 leading-relaxed">
                 We don't just install nets; we engineer safety environments that protect your most valuable assets with clinical precision.
               </p>
-              <Button variant="link" className="p-0 h-auto text-blue-600 font-bold text-lg group">
-                Download Technical Spec <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+
             </div>
             <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8">
               {features.map((feature, i) => (
@@ -144,7 +142,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.filter(s => s.isFeatured).map((service, i) => (
+            {services.map((service, i) => (
               <ServiceCard key={i} service={service} index={i} />
             ))}
           </div>

@@ -45,7 +45,7 @@ export default function Navbar() {
                     <div className="relative w-10 h-10 transition-transform group-hover:scale-110">
                         <Image
                             src="/logo.png"
-                            alt="John Safety Nets Logo"
+                            alt="John Enterprises Logo"
                             fill
                             className="object-contain"
                             priority
@@ -53,7 +53,7 @@ export default function Navbar() {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-lg font-bold tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
-                            John Safety Nets
+                            John Enterprises
                         </span>
                         <span className="text-sm font-semibold text-slate-500 uppercase tracking-widest leading-none">
                             Precision Engineering

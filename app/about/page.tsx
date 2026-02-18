@@ -8,7 +8,7 @@ import { InteractiveGrid } from "@/components/ui/interactive-grid"
 
 export default function AboutPage() {
     const milestones = [
-        { year: "2014", title: "Inception", desc: "John Safety Nets was established in Chennai with a focus on high-tensile netting solutions." },
+        { year: "2014", title: "Inception", desc: "John Enterprises was established in Chennai with a focus on high-tensile netting solutions." },
         { year: "2018", title: "Certification", desc: "Achieved ISO 9001:2015 certification for our installation protocols and materials." },
         { year: "2021", title: "Expansion", desc: "Integrated invisible grill technology and expanded service centers across Tamil Nadu." },
         { year: "2024", title: "Market Leader", desc: "Trusted by over 500+ premium residential projects and industrial complexes." },
@@ -42,7 +42,7 @@ export default function AboutPage() {
                             transition={{ delay: 0.1 }}
                             className="text-xl text-slate-500 font-medium leading-relaxed mb-10"
                         >
-                            For over a decade, John Safety Nets has redefined protection in Chennai. We combine structural engineering principles with premium materials to secure your spaces with clinical precision.
+                            For over a decade, John Enterprises has redefined protection in Chennai. We combine structural engineering principles with premium materials to secure your spaces with clinical precision.
                         </motion.p>
                         <div className="flex gap-4">
                             <Button size="lg" variant="primary" asChild>
