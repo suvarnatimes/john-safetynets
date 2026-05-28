@@ -5,7 +5,8 @@ import Link from "next/link"
 import { services } from "@/lib/data"
 import { Award, ShieldCheck, Users, Zap, ArrowRight, Play } from "lucide-react"
 import { ScrollingImages } from "@/components/ui/scrolling-images"
-import { InteractiveGrid } from "@/components/ui/interactive-grid"
+import dynamic from "next/dynamic"
+const InteractiveGrid = dynamic(() => import("@/components/ui/interactive-grid").then(mod => mod.InteractiveGrid))
 import { FadeIn } from "@/components/ui/fade-in"
 import { ServiceCard } from "@/components/ui/service-card"
 

@@ -14,7 +14,7 @@ export default function Footer() {
             <div className="container-large">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
                     {/* Brand */}
-                    <div className="lg:col-span-4 space-y-6">
+                    <div className="lg:col-span-3 space-y-6">
                         <Link href="/" className="flex items-center gap-2 group">
                             <div className="relative w-10 h-10 transition-transform group-hover:scale-110">
                                 <Image
@@ -27,7 +27,7 @@ export default function Footer() {
                             <span className="text-xl font-bold tracking-tight text-slate-900">John Enterprises</span>
                         </Link>
                         <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
-                            Premium safety solutions engineered for precision. Chennai's leading provider of invisible grills and professional netting systems.
+                            Premium safety solutions engineered for precision. South India's leading provider of invisible grills and professional netting systems.
                         </p>
                         <div className="flex items-center gap-3">
                             {[Instagram, Facebook, Twitter].map((Icon, i) => (
@@ -70,8 +70,22 @@ export default function Footer() {
                         </ul>
                     </div>
 
+                    {/* Locations */}
+                    <div className="lg:col-span-2">
+                        <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Locations</h4>
+                        <ul className="space-y-4">
+                            {["Chennai", "Pondicherry", "Trichy"].map((loc) => (
+                                <li key={loc}>
+                                    <Link href={`/location/${loc.toLowerCase()}`} className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                                        {loc}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
                     {/* Contact */}
-                    <div className="lg:col-span-4">
+                    <div className="lg:col-span-3">
                         <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Reach Us</h4>
                         <div className="space-y-5">
                             <div className="flex items-start gap-4">

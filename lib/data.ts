@@ -403,3 +403,100 @@ export const services = [
         isFeatured: false
     }
 ]
+
+export const cities = [
+    {
+        slug: "chennai",
+        name: "Chennai",
+        phone: "+91 72000 92393",
+        email: "johnsafetynets7@gmail.com",
+        address: "Chennai, Tamil Nadu",
+        coordinates: { lat: 13.0827, lng: 80.2707 },
+        description: "Chennai's most trusted provider of premium safety nets and invisible grills. We offer high-quality, durable solutions across all zones of Chennai."
+    },
+    {
+        slug: "pondicherry",
+        name: "Pondicherry",
+        phone: "+91 72000 92393",
+        email: "johnsafetynets7@gmail.com",
+        address: "Pondicherry",
+        coordinates: { lat: 11.9416, lng: 79.8083 },
+        description: "Premium safety net installations in Pondicherry. Protect your coastal homes with our marine-grade stainless steel invisible grills and UV-stabilized bird nets."
+    },
+    {
+        slug: "trichy",
+        name: "Trichy",
+        phone: "+91 72000 92393",
+        email: "johnsafetynets7@gmail.com",
+        address: "Tiruchirappalli, Tamil Nadu",
+        coordinates: { lat: 10.7905, lng: 78.7047 },
+        description: "Professional safety solutions in Trichy. Specializing in high-tensile balcony safety nets, pigeon protection systems, and sports practice netting."
+    }
+]
+
+export const seoKeywordsMapping: Record<string, string> = {
+    "pigeon-nets-service": "invisible-pigeon-net",
+    "invisible-grills-balcony": "invisible-grill-balcony-safety-nets",
+    "duct-area-safety-nets": "duct-area-nets",
+    "sports-practice-nets": "sports-practice-nets",
+    "balcony-safety-nets": "invisible-grill-balcony-safety-nets",
+    "cloth-hanger-services": "cloth-hanger-services",
+}
+
+export function resolveServiceSlug(slug: string): string {
+    return seoKeywordsMapping[slug] || slug;
+}
+
+export function getServiceBySlug(slug: string) {
+    const resolvedSlug = resolveServiceSlug(slug);
+    return services.find(s => s.slug === resolvedSlug);
+}
+
+export function getCityBySlug(slug: string) {
+    return cities.find(c => c.slug === slug);
+}
+
+// Advanced SEO: FAQ Rich Snippets Data
+export const commonFaqs = [
+    {
+        question: "How long does the installation process take?",
+        answer: "Most of our standard installations are completed within 2 to 4 hours. However, larger commercial projects or complex architectural layouts may take a full day."
+    },
+    {
+        question: "Do you offer a warranty on your safety nets?",
+        answer: "Yes, we provide a 3 to 5-year warranty depending on the material used. Our 316 Marine Grade Stainless Steel and UV-stabilized HDPE nets are guaranteed against weather degradation."
+    },
+    {
+        question: "Will the safety nets block my view or ventilation?",
+        answer: "Not at all. Our invisible grills and translucent safety nets are designed to provide maximum security while maintaining 100% airflow and near-invisible aesthetics from a distance."
+    }
+];
+
+export const serviceSpecificFaqs: Record<string, { question: string, answer: string }[]> = {
+    "invisible-grill-balcony-safety-nets": [
+        {
+            question: "How much weight can the invisible grills withstand?",
+            answer: "Our invisible grills are built using 316 Marine Grade Stainless Steel and can withstand tensile impact loads of up to 400kg, making them completely safe for children and pets."
+        },
+        {
+            question: "Are invisible grills prone to rusting in coastal areas?",
+            answer: "No, we use 316 marine-grade stainless steel which is highly resistant to corrosion and rust, making them perfect for coastal cities like Chennai and Pondicherry."
+        }
+    ],
+    "invisible-pigeon-net": [
+        {
+            question: "Are pigeon nets harmful to the birds?",
+            answer: "No, our nets act purely as a physical barrier. They are a humane solution that prevents birds from roosting or nesting without causing them any harm."
+        },
+        {
+            question: "How durable are the pigeon nets in direct sunlight?",
+            answer: "Our pigeon nets are made from UV-stabilized HDPE (High-Density Polyethylene), ensuring they do not become brittle or degrade even after years of direct sun exposure."
+        }
+    ]
+};
+
+export function getServiceFaqs(slug: string) {
+    const resolvedSlug = resolveServiceSlug(slug);
+    const specific = serviceSpecificFaqs[resolvedSlug] || [];
+    return [...specific, ...commonFaqs];
+}

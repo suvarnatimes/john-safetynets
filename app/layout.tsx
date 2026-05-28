@@ -23,11 +23,16 @@ const outfit = Outfit({
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "John Enterprises | Premium Safety Net Solutions in Chennai",
-  description: "High-quality invisible grills, pigeon nets, sports nets, and more. Professional installation in Chennai.",
+  metadataBase: new URL('https://johnsafetynets.com'),
+  title: "John Enterprises | Premium Safety Nets in Chennai, Pondicherry & Trichy",
+  description: "High-quality invisible grills, pigeon nets, sports nets, and balcony safety nets. Professional installation in Chennai, Pondicherry, and Trichy.",
+  keywords: "Pigeon nets service, Invisible grills Balcony, Duct area safety nets, Sports practice nets, Balcony safety nets, Cloth Hanger services",
   icons: {
     icon: '/logo.ico',
     apple: '/logo.png',
+  },
+  verification: {
+    // google: "your-google-site-verification-code-here" // Uncomment and add your Google Search Console verification code
   }
 };
 
