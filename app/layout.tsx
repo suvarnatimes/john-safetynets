@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     apple: '/logo.png',
   },
   verification: {
-    // google: "your-google-site-verification-code-here" // Uncomment and add your Google Search Console verification code
+    google: "p5yGXwViT7sjb0FrwubUroEyZHrtTSh-VDhA4qsn7Mw",
   }
 };
 
