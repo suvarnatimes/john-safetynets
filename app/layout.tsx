@@ -23,7 +23,7 @@ const outfit = Outfit({
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://johnsafetynets.com'),
+  metadataBase: new URL('https://johnbalconysafetynets.com'),
   title: "John Enterprises | Premium Safety Nets in Chennai, Pondicherry & Trichy",
   description: "High-quality invisible grills, pigeon nets, sports nets, and balcony safety nets. Professional installation in Chennai, Pondicherry, and Trichy.",
   keywords: "Pigeon nets service, Invisible grills Balcony, Duct area safety nets, Sports practice nets, Balcony safety nets, Cloth Hanger services",

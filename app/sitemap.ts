@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { services, cities } from '@/lib/data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://johnsafetynets.com' // Using a placeholder for their production URL
+    const baseUrl = 'https://johnbalconysafetynets.com' // Using a placeholder for their production URL
     
     // Core standard routes
     const routes = [

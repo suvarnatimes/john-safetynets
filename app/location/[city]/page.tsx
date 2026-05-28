@@ -65,7 +65,7 @@ export default async function LocationPage(props: Props) {
             "latitude": city.coordinates.lat,
             "longitude": city.coordinates.lng
         },
-        "url": `https://johnsafetynets.com/location/${city.slug}`
+        "url": `https://johnbalconysafetynets.com/location/${city.slug}`
     }
 
     return (
