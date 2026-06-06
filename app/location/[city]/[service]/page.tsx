@@ -1,4 +1,4 @@
-import { services, cities, getCityBySlug, getServiceBySlug, getServiceFaqs } from "@/lib/data"
+import { services, cities, getCityBySlug, getServiceBySlug, getServiceFaqs, getTestimonials } from "@/lib/data"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, CheckCircle2, Phone, Star, ArrowRight, MapPin, HelpCircle } from "lucide-react"
 import Link from "next/link"
@@ -23,8 +23,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         }
     }
 
-    const title = `${service.title} in ${city.name} | John Enterprises`
-    const description = `Looking for ${service.title} in ${city.name}? ${service.desc} Contact John Enterprises today.`
+    const title = `Best ${service.seoTitle || service.title} in ${city.name} | John Enterprises`
+    const description = `Looking for high-quality ${service.title} in ${city.name}? We provide professional safety net installation with 5 years warranty in ${city.name}. Get a free quote today.`
 
     return {
         title,
@@ -75,6 +75,9 @@ export default async function CityServicePage(props: Props) {
         notFound()
     }
 
+    const pageTestimonials = getTestimonials(params.service, params.city)
+    const processSteps = service.process
+
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "Service",
@@ -100,9 +103,25 @@ export default async function CityServicePage(props: Props) {
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
-            "reviewCount": "87",
+            "reviewCount": String(80 + pageTestimonials.length),
             "bestRating": "5"
-        }
+        },
+        ...(pageTestimonials.length > 0 && {
+            "review": pageTestimonials.map(t => ({
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": t.name
+                },
+                "datePublished": t.date,
+                "reviewBody": t.text,
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": String(t.rating),
+                    "bestRating": "5"
+                }
+            }))
+        })
     }
 
     const faqs = getServiceFaqs(params.service)
@@ -182,7 +201,7 @@ export default async function CityServicePage(props: Props) {
                             <h1 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1] mb-8">
                                 {service.title} <span className="text-blue-600 block mt-2">in {city.name}</span>
                             </h1>
-                            <p className="text-xl text-slate-600 leading-relaxed font-medium mb-6">
+                            <p className="text-xl text-slate-650 leading-relaxed font-medium mb-6">
                                 {service.fullDesc} Professional installation services serving all neighborhoods in {city.name}.
                             </p>
                             {service.longDescription && (
@@ -240,17 +259,17 @@ export default async function CityServicePage(props: Props) {
                         </FadeIn>
 
                         {/* Process Section */}
-                        {service.process && (
+                        {processSteps && (
                             <FadeIn delay={0.2}>
                                 <h3 className="text-2xl font-bold text-slate-900 mb-6">Local Installation Process</h3>
                                 <div className="space-y-6">
-                                    {service.process.map((step: any, idx: number) => (
+                                    {processSteps.map((step: any, idx: number) => (
                                         <div key={idx} className="flex gap-4">
                                             <div className="flex flex-col items-center">
                                                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
                                                     {idx + 1}
                                                 </div>
-                                                {idx !== service.process.length - 1 && (
+                                                {idx !== processSteps.length - 1 && (
                                                     <div className="w-px h-full bg-blue-100 my-2" />
                                                 )}
                                             </div>
@@ -315,6 +334,42 @@ export default async function CityServicePage(props: Props) {
                     </FadeIn>
                 </div>
 
+                {/* Testimonials Section */}
+                {pageTestimonials.length > 0 && (
+                    <FadeIn delay={0.3} className="mt-32 max-w-5xl mx-auto">
+                        <div className="text-center mb-12">
+                            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-3">Customer Reviews</span>
+                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight flex items-center justify-center gap-3">
+                                Verified Customer Feedback in {city.name}
+                            </h2>
+                            <p className="text-slate-500 font-medium mt-4">Read reviews from happy property owners in your area.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {pageTestimonials.map((t, idx) => (
+                                <div key={idx} className="bg-slate-50 border border-slate-100 rounded-3xl p-8 relative flex flex-col justify-between hover:shadow-lg transition-shadow">
+                                    <div>
+                                        <div className="flex items-center gap-1 text-amber-400 mb-4">
+                                            {[...Array(t.rating)].map((_, i) => (
+                                                <Star key={i} className="w-5 h-5 fill-current" />
+                                            ))}
+                                        </div>
+                                        <p className="text-slate-650 leading-relaxed font-medium mb-6 italic">
+                                            "{t.text}"
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center justify-between pt-4 border-t border-slate-100/80">
+                                        <div>
+                                            <h4 className="font-bold text-slate-950">{t.name}</h4>
+                                            <p className="text-xs text-slate-400 font-semibold">{t.area}, {t.city}</p>
+                                        </div>
+                                        <span className="text-xs font-semibold text-slate-400 bg-white px-3 py-1 rounded-full border border-slate-200">{t.date}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </FadeIn>
+                )}
+
                 {/* FAQ Section */}
                 {faqs.length > 0 && (
                     <FadeIn delay={0.4} className="mt-32 max-w-4xl mx-auto">
@@ -329,7 +384,7 @@ export default async function CityServicePage(props: Props) {
                             {faqs.map((faq, i) => (
                                 <div key={i} className="bg-slate-50 border border-slate-100 rounded-2xl p-6 md:p-8">
                                     <h4 className="text-xl font-bold text-slate-900 mb-3">{faq.question}</h4>
-                                    <p className="text-slate-600 leading-relaxed font-medium">{faq.answer}</p>
+                                    <p className="text-slate-650 leading-relaxed font-medium">{faq.answer}</p>
                                 </div>
                             ))}
                         </div>

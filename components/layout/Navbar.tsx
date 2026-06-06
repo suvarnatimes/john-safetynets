@@ -29,6 +29,7 @@ export default function Navbar() {
             children: services.map(s => ({ name: s.title, href: `/services/${s.slug}` }))
         },
         { name: "Gallery", href: "/gallery" },
+        { name: "Blog", href: "/blog" },
         { name: "About", href: "/about" },
         { name: "Contact", href: "/contact" },
     ]

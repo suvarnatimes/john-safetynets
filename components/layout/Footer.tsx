@@ -52,7 +52,7 @@ export default function Footer() {
                     <div className="lg:col-span-2">
                         <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Company</h4>
                         <ul className="space-y-4">
-                            {["Home", "About", "Services", "Gallery", "Contact"].map((link) => (
+                            {["Home", "About", "Services", "Gallery", "Blog", "Contact"].map((link) => (
                                 <li key={link}>
                                     <Link href={link === "Home" ? "/" : `/${link.toLowerCase()}`} className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
                                         {link}

@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next'
 import { services, cities } from '@/lib/data'
+import { blogPosts } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://johnbalconysafetynets.com'
-    const lastModDate = new Date('2026-05-01') // Static date to optimize crawl budget
+    const lastModDate = new Date('2026-06-06') // Updated to reflect Phase 2 launch date
     
     // Core standard routes
     const routes = [
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/contact',
         '/gallery',
         '/services',
+        '/blog',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: lastModDate,
@@ -35,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
     }))
     
-    // City + Service routes - ONLY include canonical service slugs (NO SEO alias duplicates)
+    // City + Service routes
     const cityServiceRoutes: MetadataRoute.Sitemap = []
     
     cities.forEach((city) => {
@@ -49,5 +51,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         })
     })
 
-    return [...routes, ...serviceRoutes, ...cityRoutes, ...cityServiceRoutes]
+    // Blog post routes
+    const blogPostRoutes = blogPosts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.publishedDate),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }))
+ 
+    return [...routes, ...serviceRoutes, ...cityRoutes, ...cityServiceRoutes, ...blogPostRoutes]
 }

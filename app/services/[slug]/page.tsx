@@ -1,4 +1,4 @@
-import { services, getServiceFaqs, cities } from "@/lib/data"
+import { services, getServiceFaqs, cities, getTestimonials } from "@/lib/data"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, CheckCircle2, Phone, Star, ArrowRight, HelpCircle, MapPin } from "lucide-react"
 import Link from "next/link"
@@ -22,9 +22,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         }
     }
 
+    const title = `Best ${service.seoTitle || service.title} | Professional Installation`
+
     return {
-        title: `${service.title} | John Enterprises`,
-        description: service.desc,
+        title: `${title} | John Enterprises`,
+        description: `${service.fullDesc} High-quality materials, 5-year warranty, professional installation. Get your free quote today.`,
         alternates: {
             canonical: `https://johnbalconysafetynets.com/services/${service.slug}`,
         },
@@ -46,7 +48,9 @@ export default async function ServicePage(props: Props) {
     }
 
     const faqs = getServiceFaqs(params.slug)
-    
+    const pageTestimonials = getTestimonials(params.slug)
+    const processSteps = service.process
+
     const serviceSchema = {
         "@context": "https://schema.org",
         "@type": "Service",
@@ -61,9 +65,25 @@ export default async function ServicePage(props: Props) {
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
-            "reviewCount": "124",
+            "reviewCount": String(120 + pageTestimonials.length),
             "bestRating": "5"
-        }
+        },
+        ...(pageTestimonials.length > 0 && {
+            "review": pageTestimonials.map(t => ({
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": t.name
+                },
+                "datePublished": t.date,
+                "reviewBody": t.text,
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": String(t.rating),
+                    "bestRating": "5"
+                }
+            }))
+        })
     }
 
     const faqSchema = {
@@ -78,6 +98,10 @@ export default async function ServicePage(props: Props) {
             }
         }))
     }
+
+    const related = (service.relatedServices || [])
+        .map(slug => services.find(s => s.slug === slug))
+        .filter((s): s is typeof services[number] => s !== undefined)
 
     return (
         <div className="min-h-screen bg-white pt-24 pb-24 relative">
@@ -153,17 +177,17 @@ export default async function ServicePage(props: Props) {
                         </FadeIn>
 
                         {/* Process Section */}
-                        {service.process && (
+                        {processSteps && (
                             <FadeIn delay={0.2}>
                                 <h3 className="text-2xl font-bold text-slate-900 mb-6">Installation Process</h3>
                                 <div className="space-y-6">
-                                    {service.process.map((step: any, idx: number) => (
+                                    {processSteps.map((step: any, idx: number) => (
                                         <div key={idx} className="flex gap-4">
                                             <div className="flex flex-col items-center">
                                                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
                                                     {idx + 1}
                                                 </div>
-                                                {idx !== service.process.length - 1 && (
+                                                {idx !== processSteps.length - 1 && (
                                                     <div className="w-px h-full bg-blue-100 my-2" />
                                                 )}
                                             </div>
@@ -227,6 +251,82 @@ export default async function ServicePage(props: Props) {
                         </div>
                     </FadeIn>
                 </div>
+
+                {/* Testimonials Section */}
+                {pageTestimonials.length > 0 && (
+                    <FadeIn delay={0.3} className="mt-32 max-w-5xl mx-auto">
+                        <div className="text-center mb-12">
+                            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-3">Customer Reviews</span>
+                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight flex items-center justify-center gap-3">
+                                What Our Customers Say
+                            </h2>
+                            <p className="text-slate-500 font-medium mt-4">Read verified reviews from satisfied clients.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {pageTestimonials.map((t, idx) => (
+                                <div key={idx} className="bg-slate-50 border border-slate-100 rounded-3xl p-8 relative flex flex-col justify-between hover:shadow-lg transition-shadow">
+                                    <div>
+                                        <div className="flex items-center gap-1 text-amber-400 mb-4">
+                                            {[...Array(t.rating)].map((_, i) => (
+                                                <Star key={i} className="w-5 h-5 fill-current" />
+                                            ))}
+                                        </div>
+                                        <p className="text-slate-650 leading-relaxed font-medium mb-6 italic">
+                                            "{t.text}"
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center justify-between pt-4 border-t border-slate-100/80">
+                                        <div>
+                                            <h4 className="font-bold text-slate-950">{t.name}</h4>
+                                            <p className="text-xs text-slate-400 font-semibold">{t.area}, {t.city}</p>
+                                        </div>
+                                        <span className="text-xs font-semibold text-slate-400 bg-white px-3 py-1 rounded-full border border-slate-200">{t.date}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </FadeIn>
+                )}
+
+                {/* Related Services */}
+                {related.length > 0 && (
+                    <FadeIn delay={0.4} className="mt-32 max-w-5xl mx-auto">
+                        <div className="text-center mb-12">
+                            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-3">Explore More</span>
+                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+                                Related Safety Solutions
+                            </h2>
+                            <p className="text-slate-500 font-medium mt-4">Discover our other high-quality residential and commercial safety systems.</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {related.map((rel, idx) => (
+                                <Link 
+                                    key={idx} 
+                                    href={`/services/${rel.slug}`}
+                                    className="group bg-slate-50 hover:bg-white border border-slate-100 hover:border-blue-600/30 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
+                                >
+                                    <div>
+                                        <div className="aspect-[16/10] rounded-xl overflow-hidden mb-4 relative bg-slate-250">
+                                            {rel.image && (
+                                                <Image 
+                                                    src={rel.image}
+                                                    alt={rel.title}
+                                                    fill
+                                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                />
+                                            )}
+                                        </div>
+                                        <h3 className="font-bold text-slate-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">{rel.title}</h3>
+                                        <p className="text-sm text-slate-500 line-clamp-2">{rel.desc}</p>
+                                    </div>
+                                    <div className="flex items-center text-blue-600 font-semibold text-sm mt-4 group-hover:translate-x-1 transition-transform">
+                                        Learn More <ArrowRight className="w-4 h-4 ml-1" />
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </FadeIn>
+                )}
 
                 {/* FAQ Section */}
                 {faqs.length > 0 && (
