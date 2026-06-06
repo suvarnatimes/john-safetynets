@@ -1,6 +1,6 @@
-import { services, getServiceFaqs } from "@/lib/data"
+import { services, getServiceFaqs, cities } from "@/lib/data"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, CheckCircle2, Phone, Star, ArrowRight, HelpCircle } from "lucide-react"
+import { ArrowLeft, CheckCircle2, Phone, Star, ArrowRight, HelpCircle, MapPin } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
@@ -25,6 +25,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     return {
         title: `${service.title} | John Enterprises`,
         description: service.desc,
+        alternates: {
+            canonical: `https://johnbalconysafetynets.com/services/${service.slug}`,
+        },
     }
 }
 
@@ -44,6 +47,25 @@ export default async function ServicePage(props: Props) {
 
     const faqs = getServiceFaqs(params.slug)
     
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": service.title,
+        "description": service.fullDesc,
+        "provider": {
+            "@type": "Organization",
+            "name": "John Enterprises",
+            "url": "https://johnbalconysafetynets.com",
+            "logo": "https://johnbalconysafetynets.com/logo.png"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "124",
+            "bestRating": "5"
+        }
+    }
+
     const faqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -61,7 +83,7 @@ export default async function ServicePage(props: Props) {
         <div className="min-h-screen bg-white pt-24 pb-24 relative">
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([serviceSchema, faqSchema]) }}
             />
             <InteractiveGrid className="opacity-30 text-blue-100" />
             <div className="container-large relative z-10">
@@ -94,6 +116,23 @@ export default async function ServicePage(props: Props) {
                                     {service.longDescription}
                                 </p>
                             )}
+
+                            {/* Service Available In Locations */}
+                            <div className="mt-8 pt-6 border-t border-slate-100">
+                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-3">Service Available In:</span>
+                                <div className="flex flex-wrap gap-3">
+                                    {cities.map((city) => (
+                                        <Link
+                                            key={city.slug}
+                                            href={`/location/${city.slug}/${service.slug}`}
+                                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-sm font-semibold hover:border-blue-600 hover:text-blue-600 hover:bg-white transition-all shadow-sm"
+                                        >
+                                            <MapPin className="w-4 h-4 text-blue-600" />
+                                            {city.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
                         </FadeIn>
 
                         {/* Benefits Grid */}

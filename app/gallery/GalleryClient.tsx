@@ -86,10 +86,23 @@ export default function GalleryClient() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-xl text-slate-500 font-medium leading-relaxed"
+                        className="text-xl text-slate-500 font-medium leading-relaxed animate-in fade-in"
                     >
                         Explore our database of premium safety installations across residential, commercial, and industrial segments in Chennai, Pondicherry, and Trichy.
                     </motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 }}
+                        className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-slate-500 font-medium leading-relaxed"
+                    >
+                        <p>
+                            Welcome to the John Enterprises project portfolio. Here, we showcase a wide array of our safety net installations, invisible balcony grills, and custom netting projects completed across Chennai, Pondicherry (Puducherry), and Trichy. Each project represents our commitment to premium craftsmanship, engineering excellence, and structural safety. From high-rise residential apartments to complex commercial structures and professional sports facilities, our certified installation experts configure every system for long-term structural integrity.
+                        </p>
+                        <p>
+                            We specialize in utilizing high-tensile 316 Marine Grade Stainless Steel for invisible grills and heavy-duty, UV-stabilized High-Density Polyethylene (HDPE) for bird and pigeon barriers. Our team ensures that every installation preserves the building's aesthetic facade, maintains proper airflow, and provides maximum security against accidental falls or pest entries. Browse through our recently completed works below, categorized by utility, child safety, pigeon protection, industrial barriers, and sports netting systems.
+                        </p>
+                    </motion.div>
                 </div>
 
                 {/* Gallery Wall */}

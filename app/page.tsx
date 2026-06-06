@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
-import { services } from "@/lib/data"
+import { services, cities } from "@/lib/data"
 import { Award, ShieldCheck, Users, Zap, ArrowRight, Play } from "lucide-react"
 import { ScrollingImages } from "@/components/ui/scrolling-images"
 import dynamic from "next/dynamic"
@@ -96,6 +96,41 @@ export default function Home() {
                 <div className="text-3xl font-bold text-slate-900 mb-1">{stat.val}</div>
                 <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Serving Cities Location Section */}
+      <section className="py-16 bg-white border-b border-slate-50">
+        <div className="container-large">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">
+              Serving <span className="text-blue-600">Chennai, Pondicherry & Trichy</span>
+            </h2>
+            <p className="text-slate-500 font-semibold mt-4">
+              Select your city to explore localized services, neighborhood guides, and schedule a direct site audit.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {cities.map((city) => (
+              <Link 
+                key={city.slug} 
+                href={`/location/${city.slug}`}
+                className="group p-8 rounded-3xl border border-slate-200/60 bg-slate-50/30 hover:bg-white hover:border-blue-600 hover:shadow-2xl transition-all duration-500 flex flex-col justify-between"
+              >
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-950 group-hover:text-blue-600 transition-colors">
+                    {city.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm mt-3 line-clamp-3 leading-relaxed font-medium">
+                    {city.description}
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center text-sm font-bold text-blue-600 gap-1.5 opacity-90 group-hover:opacity-100">
+                  Explore {city.name} Services <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
             ))}
           </div>
         </div>

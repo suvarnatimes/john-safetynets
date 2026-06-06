@@ -29,6 +29,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     return {
         title,
         description,
+        alternates: {
+            canonical: `https://johnbalconysafetynets.com/location/${city.slug}/${service.slug}`,
+        },
         openGraph: {
             title,
             description,
@@ -79,10 +82,12 @@ export default async function CityServicePage(props: Props) {
         "provider": {
             "@type": "LocalBusiness",
             "name": `John Enterprises ${city.name}`,
+            "image": "https://johnbalconysafetynets.com/logo.png",
+            "priceRange": "₹₹",
             "address": {
                 "@type": "PostalAddress",
                 "addressLocality": city.name,
-                "addressRegion": "Tamil Nadu",
+                "addressRegion": city.slug === "pondicherry" ? "Puducherry" : "Tamil Nadu",
                 "addressCountry": "IN"
             },
             "telephone": city.phone
@@ -91,7 +96,13 @@ export default async function CityServicePage(props: Props) {
             "@type": "City",
             "name": city.name
         },
-        "description": service.fullDesc
+        "description": service.fullDesc,
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "87",
+            "bestRating": "5"
+        }
     }
 
     const faqs = getServiceFaqs(params.service)
@@ -109,11 +120,36 @@ export default async function CityServicePage(props: Props) {
         }))
     }
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://johnbalconysafetynets.com"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": city.name,
+                "item": `https://johnbalconysafetynets.com/location/${city.slug}`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": service.title,
+                "item": `https://johnbalconysafetynets.com/location/${city.slug}/${service.slug}`
+            }
+        ]
+    }
+
     return (
         <div className="min-h-screen bg-white pt-24 pb-24 relative">
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqSchema]) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqSchema, breadcrumbSchema]) }}
             />
             
             <InteractiveGrid className="opacity-30 text-blue-100" />
@@ -150,9 +186,39 @@ export default async function CityServicePage(props: Props) {
                                 {service.fullDesc} Professional installation services serving all neighborhoods in {city.name}.
                             </p>
                             {service.longDescription && (
-                                <p className="text-lg text-slate-500 leading-relaxed">
+                                <p className="text-lg text-slate-500 leading-relaxed font-medium">
                                     {service.longDescription}
                                 </p>
+                            )}
+
+                            {/* Localized Insights Card */}
+                            {city.localInsight && (
+                                <FadeIn delay={0.15}>
+                                    <div className="bg-blue-50/50 rounded-3xl p-8 border border-blue-100/50 space-y-6">
+                                        <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                            <MapPin className="w-5 h-5 text-blue-600" />
+                                            Local Installation Insights for {city.name}
+                                        </h3>
+                                        <p className="text-slate-650 leading-relaxed font-medium">
+                                            {city.localInsight}
+                                        </p>
+                                        <p className="text-slate-500 font-medium">
+                                            <strong>Service Area Scope:</strong> {city.serviceArea}
+                                        </p>
+                                        {city.neighborhoods && (
+                                            <div className="pt-4 border-t border-blue-100">
+                                                <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-3">Serving Neighborhoods:</span>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {city.neighborhoods.map((nh) => (
+                                                        <span key={nh} className="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-slate-650 text-xs font-bold">
+                                                            {nh}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </FadeIn>
                             )}
                         </FadeIn>
 

@@ -30,13 +30,19 @@ export default function Footer() {
                             Premium safety solutions engineered for precision. South India's leading provider of invisible grills and professional netting systems.
                         </p>
                         <div className="flex items-center gap-3">
-                            {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                            {[
+                                { Icon: Instagram, href: "https://instagram.com/johnenterprises_safetynets" },
+                                { Icon: Facebook, href: "https://facebook.com/johnenterprisessafetynets" },
+                                { Icon: Twitter, href: "https://twitter.com/johnsafetynets" }
+                            ].map((social, i) => (
                                 <a
                                     key={i}
-                                    href="#"
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="w-10 h-10 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:border-blue-600 hover:text-blue-600 hover:bg-white transition-all shadow-sm"
                                 >
-                                    <Icon className="w-5 h-5" />
+                                    <social.Icon className="w-5 h-5" />
                                 </a>
                             ))}
                         </div>
@@ -60,10 +66,16 @@ export default function Footer() {
                     <div className="lg:col-span-2">
                         <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Services</h4>
                         <ul className="space-y-4">
-                            {["Invisible Grills", "Pigeon Nets", "Sports Nets", "Bird Protection", "Safety Audits"].map((service) => (
-                                <li key={service}>
-                                    <Link href="/services" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
-                                        {service}
+                            {[
+                                { label: "Invisible Grills", href: "/services/invisible-grill-balcony-safety-nets" },
+                                { label: "Pigeon Nets", href: "/services/invisible-pigeon-net" },
+                                { label: "Sports Nets", href: "/services/sports-practice-nets" },
+                                { label: "Children Safety", href: "/services/invisible-childrens-safety" },
+                                { label: "Monkey Nets", href: "/services/monkey-safety-nets" },
+                            ].map((service) => (
+                                <li key={service.label}>
+                                    <Link href={service.href} className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                                        {service.label}
                                     </Link>
                                 </li>
                             ))}
@@ -74,13 +86,36 @@ export default function Footer() {
                     <div className="lg:col-span-2">
                         <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Locations</h4>
                         <ul className="space-y-4">
-                            {["Chennai", "Pondicherry", "Trichy"].map((loc) => (
-                                <li key={loc}>
-                                    <Link href={`/location/${loc.toLowerCase()}`} className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
-                                        {loc}
+                            {[
+                                { name: "Chennai", address: "Anna Nagar, Chennai" },
+                                { name: "Pondicherry", address: "White Town, Puducherry" },
+                                { name: "Trichy", address: "Thillai Nagar, Trichy" }
+                            ].map((loc) => (
+                                <li key={loc.name}>
+                                    <Link href={`/location/${loc.name.toLowerCase()}`} className="text-sm text-slate-500 hover:text-blue-600 transition-colors block font-semibold">
+                                        {loc.name}
                                     </Link>
+                                    <span className="text-[10px] text-slate-400 block mt-0.5 leading-tight">{loc.address}</span>
                                 </li>
                             ))}
+                        </ul>
+                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-6 mb-3">Popular Local Nets</h4>
+                        <ul className="space-y-2">
+                            <li>
+                                <Link href="/location/chennai/invisible-pigeon-net" className="text-xs text-slate-500 hover:text-blue-600 transition-colors">
+                                    Chennai Pigeon Nets
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/location/pondicherry/invisible-grill-balcony-safety-nets" className="text-xs text-slate-500 hover:text-blue-600 transition-colors">
+                                    Pondicherry Grills
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/location/trichy/sports-practice-nets" className="text-xs text-slate-500 hover:text-blue-600 transition-colors">
+                                    Trichy Sports Nets
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
@@ -104,6 +139,17 @@ export default function Footer() {
                                 <div>
                                     <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Email Support</p>
                                     <p className="text-sm font-bold text-slate-900">johnsafetynets7@gmail.com</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm shrink-0">
+                                    <MapPin className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Office Hubs</p>
+                                    <p className="text-xs font-semibold text-slate-650">
+                                        Chennai | Puducherry | Trichy
+                                    </p>
                                 </div>
                             </div>
                         </div>

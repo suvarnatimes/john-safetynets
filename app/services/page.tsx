@@ -1,4 +1,5 @@
 
+import type { Metadata } from 'next'
 import Image from "next/image"
 import Link from "next/link"
 import { Shield, ArrowRight, LayoutGrid, ShieldCheck } from "lucide-react"
@@ -7,6 +8,19 @@ import { services } from "@/lib/data"
 import { InteractiveGrid } from "@/components/ui/interactive-grid"
 import { FadeIn } from "@/components/ui/fade-in"
 import { ServiceCard } from "@/components/ui/service-card"
+
+export const metadata: Metadata = {
+  title: 'Safety Net Services in Chennai, Pondicherry & Trichy | John Enterprises',
+  description: 'Complete range of safety net services: invisible grills, pigeon nets, sports nets, children safety, mosquito nets & more. Professional installation in Chennai, Pondicherry, and Trichy.',
+  alternates: {
+    canonical: 'https://johnbalconysafetynets.com/services',
+  },
+  openGraph: {
+    title: 'Safety Net Services | John Enterprises',
+    description: 'Premium safety net solutions for residential & commercial spaces.',
+    type: 'website',
+  },
+}
 
 export default function ServicesPage() {
     return (

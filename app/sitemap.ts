@@ -2,7 +2,8 @@ import { MetadataRoute } from 'next'
 import { services, cities } from '@/lib/data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://johnbalconysafetynets.com' // Using a placeholder for their production URL
+    const baseUrl = 'https://johnbalconysafetynets.com'
+    const lastModDate = new Date('2026-05-01') // Static date to optimize crawl budget
     
     // Core standard routes
     const routes = [
@@ -13,60 +14,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/services',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
-        lastModified: new Date(),
+        lastModified: lastModDate,
         changeFrequency: 'weekly' as const,
-        priority: route === '' ? 1 : 0.8,
+        priority: route === '' ? 1.0 : 0.8,
     }))
     
     // Standard service routes
     const serviceRoutes = services.map((service) => ({
         url: `${baseUrl}/services/${service.slug}`,
-        lastModified: new Date(),
+        lastModified: lastModDate,
         changeFrequency: 'monthly' as const,
-        priority: 0.8,
+        priority: 0.85,
     }))
     
     // City landing routes
     const cityRoutes = cities.map((city) => ({
         url: `${baseUrl}/location/${city.slug}`,
-        lastModified: new Date(),
+        lastModified: lastModDate,
         changeFrequency: 'monthly' as const,
-        priority: 0.9,
+        priority: 0.8,
     }))
     
-    // City + Service routes
+    // City + Service routes - ONLY include canonical service slugs (NO SEO alias duplicates)
     const cityServiceRoutes: MetadataRoute.Sitemap = []
     
     cities.forEach((city) => {
-        // Optimized keyword URLs
-        const seoKeywords = [
-            "pigeon-nets-service", 
-            "invisible-grills-balcony", 
-            "duct-area-safety-nets", 
-            "sports-practice-nets",
-            "balcony-safety-nets",
-            "cloth-hanger-services"
-        ]
-        
-        seoKeywords.forEach((keyword) => {
-            cityServiceRoutes.push({
-                url: `${baseUrl}/location/${city.slug}/${keyword}`,
-                lastModified: new Date(),
-                changeFrequency: 'monthly' as const,
-                priority: 0.9, // Higher priority for local search keywords
-            })
-        })
-        
-        // Other general service URLs in this city
         services.forEach((service) => {
-            if (!seoKeywords.includes(service.slug)) {
-                cityServiceRoutes.push({
-                    url: `${baseUrl}/location/${city.slug}/${service.slug}`,
-                    lastModified: new Date(),
-                    changeFrequency: 'monthly' as const,
-                    priority: 0.7,
-                })
-            }
+            cityServiceRoutes.push({
+                url: `${baseUrl}/location/${city.slug}/${service.slug}`,
+                lastModified: lastModDate,
+                changeFrequency: 'monthly' as const,
+                priority: 0.75,
+            })
         })
     })
 

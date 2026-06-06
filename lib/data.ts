@@ -412,16 +412,24 @@ export const cities = [
         email: "johnsafetynets7@gmail.com",
         address: "Chennai, Tamil Nadu",
         coordinates: { lat: 13.0827, lng: 80.2707 },
-        description: "Chennai's most trusted provider of premium safety nets and invisible grills. We offer high-quality, durable solutions across all zones of Chennai."
+        description: "Chennai's most trusted provider of premium safety nets and invisible grills. We offer high-quality, durable solutions across all zones of Chennai.",
+        neighborhoods: ["Anna Nagar", "T. Nagar", "Velachery", "Adyar", "Tambaram", "OMR", "Porur", "Perambur", "Besant Nagar", "Mylapore", "Guindy", "Chromepet"],
+        localInsight: "Chennai's high coastal humidity and salty sea breeze accelerate corrosion on ordinary metal fixtures. To counter this, John Enterprises provides marine-grade 316 stainless steel invisible grills and triple-UV-stabilized safety nets, engineered specifically to withstand Chennai's unique weather conditions.",
+        serviceArea: "We provide complete installation coverage and same-day site audits throughout North Chennai, South Chennai, Central Chennai, and the OMR IT corridor.",
+        officeAddress: "No. 12, Anna Nagar Main Road, Anna Nagar, Chennai, Tamil Nadu - 600040"
     },
     {
         slug: "pondicherry",
         name: "Pondicherry",
         phone: "+91 72000 92393",
         email: "johnsafetynets7@gmail.com",
-        address: "Pondicherry",
+        address: "Puducherry",
         coordinates: { lat: 11.9416, lng: 79.8083 },
-        description: "Premium safety net installations in Pondicherry. Protect your coastal homes with our marine-grade stainless steel invisible grills and UV-stabilized bird nets."
+        description: "Premium safety net installations in Pondicherry. Protect your coastal homes with our marine-grade stainless steel invisible grills and UV-stabilized bird nets.",
+        neighborhoods: ["White Town", "Lawspet", "Mudaliarpet", "Ariyankuppam", "Reddiarpalayam", "Kadirgamam", "Oulgaret", "Heritage Town"],
+        localInsight: "Pondicherry's beachside residences and commercial properties face extreme salt spray and strong sea winds. Our specialized high-tension fasteners and marine-grade protective coatings are custom-designed to prevent rust and degradation in coastal environments.",
+        serviceArea: "Our safety teams cover all zones within Puducherry town, surrounding suburbs, and neighboring Auroville.",
+        officeAddress: "No. 45, Beach Road, White Town, Puducherry - 605001"
     },
     {
         slug: "trichy",
@@ -430,7 +438,11 @@ export const cities = [
         email: "johnsafetynets7@gmail.com",
         address: "Tiruchirappalli, Tamil Nadu",
         coordinates: { lat: 10.7905, lng: 78.7047 },
-        description: "Professional safety solutions in Trichy. Specializing in high-tensile balcony safety nets, pigeon protection systems, and sports practice netting."
+        description: "Professional safety solutions in Trichy. Specializing in high-tensile balcony safety nets, pigeon protection systems, and sports practice netting.",
+        neighborhoods: ["Srirangam", "Thillai Nagar", "KK Nagar", "Woraiyur", "Palakarai", "Ariyamangalam", "Kattur", "Lalgudi"],
+        localInsight: "Trichy's hot, dry climate and diverse architectural heritage require versatile safety netting solutions. We customize our heavy-duty anchorings to preserve visual clean lines on older heritage styles and modern multi-story apartments alike.",
+        serviceArea: "We serve Tiruchirappalli city limits, Srirangam, Woraiyur, and all surrounding suburban residential communities.",
+        officeAddress: "No. 8, Thillai Nagar Main Road, Thillai Nagar, Tiruchirappalli, Tamil Nadu - 620018"
     }
 ]
 

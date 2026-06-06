@@ -19,9 +19,10 @@ interface Service {
 interface ServiceCardProps {
     service: Service
     index: number
+    href?: string
 }
 
-export function ServiceCard({ service, index }: ServiceCardProps) {
+export function ServiceCard({ service, index, href }: ServiceCardProps) {
     const [isHovered, setIsHovered] = useState(false)
 
     return (
@@ -102,7 +103,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
 
                         <div className="flex items-center justify-between">
                             <Link
-                                href={`/services/${service.slug}`}
+                                href={href || `/services/${service.slug}`}
                                 className="inline-flex items-center gap-2 text-slate-900 font-bold text-sm tracking-tight group/link"
                             >
                                 Explore Solution

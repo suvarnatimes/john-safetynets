@@ -25,6 +25,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     return {
         title: `Premium Safety Nets in ${city.name} | John Enterprises`,
         description: city.description,
+        alternates: {
+            canonical: `https://johnbalconysafetynets.com/location/${city.slug}`,
+        },
         openGraph: {
             title: `Premium Safety Nets in ${city.name} | John Enterprises`,
             description: city.description,
@@ -52,10 +55,18 @@ export default async function LocationPage(props: Props) {
         "@type": "LocalBusiness",
         "name": `John Enterprises ${city.name}`,
         "description": city.description,
+        "image": "https://johnbalconysafetynets.com/logo.png",
+        "priceRange": "₹₹",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "09:00",
+            "closes": "20:00"
+        },
         "address": {
             "@type": "PostalAddress",
             "addressLocality": city.name,
-            "addressRegion": "Tamil Nadu",
+            "addressRegion": city.slug === "pondicherry" ? "Puducherry" : "Tamil Nadu",
             "addressCountry": "IN"
         },
         "telephone": city.phone,
@@ -118,9 +129,37 @@ export default async function LocationPage(props: Props) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {/* We link to the specific city's service pages rather than global ones */}
                     {services.map((service, i) => (
-                         <ServiceCard key={i} service={{...service, slug: `../location/${city.slug}/${service.slug}`}} index={i} />
+                         <ServiceCard key={i} service={service} index={i} href={`/location/${city.slug}/${service.slug}`} />
                     ))}
                 </div>
+
+                {/* Localized Neighborhoods and Insight Section */}
+                {city.neighborhoods && (
+                    <div className="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-slate-50 rounded-[3rem] p-12 md:p-20 border border-slate-100">
+                        <div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">
+                                Serving All Neighborhoods in {city.name}
+                            </h2>
+                            <p className="text-lg text-slate-600 leading-relaxed font-medium mb-6">
+                                {city.localInsight}
+                            </p>
+                            <p className="text-slate-500 font-medium">
+                                {city.serviceArea}
+                            </p>
+                        </div>
+                        <div className="space-y-6">
+                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block">Coverage Zones</span>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                {city.neighborhoods.map((nh) => (
+                                    <div key={nh} className="p-3 bg-white border border-slate-200/60 rounded-xl text-center shadow-sm">
+                                        <span className="text-slate-800 text-sm font-bold block">{nh}</span>
+                                        <span className="text-[10px] text-blue-600 font-bold uppercase mt-0.5 block">Active Zone</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* Quality Callout Localized */}
                 <FadeIn className="mt-32 bg-slate-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
