@@ -42,7 +42,7 @@ export default function Navbar() {
         >
             {/* 1. Mobile Scrolling News Marquee with Overlapping Center Call Button */}
             <div className="lg:hidden relative">
-                <div className="bg-blue-700 text-white text-[11px] font-bold h-7.5 flex items-center overflow-hidden border-b border-blue-800 select-none">
+                <div className="bg-blue-700 text-white text-[11px] font-bold pt-2 pb-3.5 flex items-center overflow-hidden border-b border-blue-800 select-none">
                     <div className="animate-marquee inline-flex gap-6 items-center">
                         <span>🔴 FLASH NEWS: Premium Balcony Safety Nets &amp; 316 Marine Invisible Grills in Chennai, Pondicherry &amp; Trichy • 5-Year Warranty • Free On-Site Inspection &amp; Same-Day Quotes • Pigeon Protection Nets • Sports Nets • 24/7 Helpline: +91 72000 92393 •</span>
                         <span>🔴 FLASH NEWS: Premium Balcony Safety Nets &amp; 316 Marine Invisible Grills in Chennai, Pondicherry &amp; Trichy • 5-Year Warranty • Free On-Site Inspection &amp; Same-Day Quotes • Pigeon Protection Nets • Sports Nets • 24/7 Helpline: +91 72000 92393 •</span>

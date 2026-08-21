@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronLeft, ChevronRight, Phone, MessageCircle, ShieldCheck, ArrowRight, Award, Mail } from "lucide-react"
+import { ChevronLeft, ChevronRight, Phone, MessageCircle, ShieldCheck, ArrowRight, Award } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export interface HeroSlide {
@@ -176,10 +176,6 @@ export function HeroSlider() {
                 quality={85}
                 className="object-cover object-center"
               />
-
-              {/* Dark Gradient Overlay for Contrast */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/30 to-slate-950/75" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-transparent to-black/25" />
             </div>
           )
         })}
@@ -211,38 +207,6 @@ export function HeroSlider() {
             {slides[current].title}
           </span>
         </div>
-
-        {/* Floating Circular Action Stack (Fixed to Right Edge of Hero Container) */}
-        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-2.5">
-          {/* Red Circle - Phone Call */}
-          <a
-            href="tel:+917200092393"
-            aria-label="Call John Enterprises"
-            className="w-10 h-10 sm:w-11 sm:h-11 bg-red-600 hover:bg-red-700 active:scale-90 text-white rounded-full flex items-center justify-center shadow-lg transition-transform"
-          >
-            <Phone className="w-4.5 h-4.5 fill-white" />
-          </a>
-
-          {/* Green Circle - WhatsApp */}
-          <a
-            href="https://wa.me/917200092393"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="WhatsApp John Enterprises"
-            className="w-10 h-10 sm:w-11 sm:h-11 bg-[#25D366] hover:bg-[#20ba5a] active:scale-90 text-white rounded-full flex items-center justify-center shadow-lg transition-transform"
-          >
-            <MessageCircle className="w-4.5 h-4.5 fill-white" />
-          </a>
-
-          {/* Blue Circle - Email */}
-          <a
-            href="mailto:info@johnbalconysafetynets.com"
-            aria-label="Email John Enterprises"
-            className="w-10 h-10 sm:w-11 sm:h-11 bg-blue-600 hover:bg-blue-700 active:scale-90 text-white rounded-full flex items-center justify-center shadow-lg transition-transform"
-          >
-            <Mail className="w-4.5 h-4.5 text-white" />
-          </a>
-        </div>
       </div>
 
       {/* ========================================================================= */}
@@ -268,10 +232,6 @@ export function HeroSlider() {
                 quality={85}
                 className="object-cover object-center"
               />
-
-              {/* Dark High-Contrast Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-900/40" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 
               {/* Slide Content Box */}
               <div className="container-large relative z-20 h-full flex flex-col justify-center py-8">
