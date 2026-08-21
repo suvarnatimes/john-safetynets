@@ -514,11 +514,22 @@ export const cities: City[] = [
 
 export const seoKeywordsMapping: Record<string, string> = {
     "pigeon-nets-service": "invisible-pigeon-net",
+    "pigeon-nets": "invisible-pigeon-net",
     "invisible-grills-balcony": "invisible-grill-balcony-safety-nets",
+    "invisible-grills-for-balconies": "invisible-grill-balcony-safety-nets",
     "duct-area-safety-nets": "duct-area-nets",
+    "duct-area-nets": "duct-area-nets",
     "sports-practice-nets": "sports-practice-nets",
+    "cricket-practice-nets": "sports-practice-nets",
     "balcony-safety-nets": "invisible-grill-balcony-safety-nets",
     "cloth-hanger-services": "cloth-hanger-services",
+    "child-safety-grills": "invisible-childrens-safety",
+    "children-safety-grills": "invisible-childrens-safety",
+    "invisible-nets-grills": "invisible-grill-balcony-safety-nets",
+    "staircase-safety-nets": "staircase-invisible-grills",
+    "monkey-safety-grills": "monkey-safety-nets",
+    "bird-spikes": "anti-bird-nets",
+    "bird-spikes-installation": "anti-bird-nets",
 };
 
 export function resolveServiceSlug(slug: string): string {

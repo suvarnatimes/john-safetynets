@@ -7,6 +7,7 @@ import { HeroSlider } from "@/components/ui/hero-slider"
 import { ServiceCard } from "@/components/ui/service-card"
 import { MobileEnquiryForm } from "@/components/ui/mobile-enquiry-form"
 import { FAQAccordion } from "@/components/ui/faq-accordion"
+import { ServiceShowcaseSection } from "@/components/ui/service-showcase-section"
 
 export default function Home() {
   const trustFeatures = [
@@ -292,6 +293,9 @@ export default function Home() {
             ))}
           </div>
         </section>
+        
+        {/* NEW SECTION: 10-Service Cards Showcase with Ancient Indian Line Texture */}
+        <ServiceShowcaseSection />
 
         {/* NEW MOBILE SECTION: Customer Reviews & Star Ratings */}
         <section className="px-4 py-8 bg-white border-t border-slate-200">
@@ -550,6 +554,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* NEW SECTION: 10-Service Cards Showcase with Ancient Indian Line Texture */}
+        <ServiceShowcaseSection />
 
         {/* NEW DESKTOP SECTION: Verified Customer Reviews & Social Proof */}
         <section className="section-compact bg-slate-50 border-b border-slate-200">
