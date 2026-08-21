@@ -1,12 +1,10 @@
 import { services, cities, getCityBySlug, getServiceBySlug, getServiceFaqs, getTestimonials } from "@/lib/data"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, CheckCircle2, Phone, Star, ArrowRight, MapPin, HelpCircle } from "lucide-react"
+import { CheckCircle2, Phone, Star, MapPin, HelpCircle, MessageCircle, ShieldCheck, Award } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import Image from "next/image"
-import { InteractiveGrid } from "@/components/ui/interactive-grid"
-import { FadeIn } from "@/components/ui/fade-in"
 
 type Props = {
     params: Promise<{ city: string; service: string }>
@@ -44,12 +42,12 @@ export async function generateStaticParams() {
     const params: { city: string; service: string }[] = []
     
     cities.forEach((city) => {
-        // Support generating standard service slugs
+        // Standard service slugs
         services.forEach((service) => {
             params.push({ city: city.slug, service: service.slug })
         })
         
-        // Include optimized keyword slugs (if different from default service slug)
+        // SEO keyword slugs
         const seoKeywords = [
             "pigeon-nets-service", 
             "invisible-grills-balcony", 
@@ -165,230 +163,242 @@ export default async function CityServicePage(props: Props) {
     }
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-24 relative">
+        <div className="min-h-screen bg-slate-50 pt-28 lg:pt-20 pb-16">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqSchema, breadcrumbSchema]) }}
             />
             
-            <InteractiveGrid className="opacity-30 text-blue-100" />
-            <div className="container-large relative z-10">
+            <div className="container-large">
                 {/* Breadcrumbs */}
-                <nav className="flex items-center text-sm text-slate-500 font-medium mb-12" aria-label="Breadcrumb">
-                    <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-                    <span className="mx-2">/</span>
-                    <Link href={`/location/${city.slug}`} className="hover:text-blue-600 transition-colors">{city.name}</Link>
-                    <span className="mx-2">/</span>
-                    <span className="text-slate-900">{service.title}</span>
+                <nav className="flex items-center text-xs text-slate-500 font-bold mb-4" aria-label="Breadcrumb">
+                    <Link href="/" className="hover:text-blue-700 transition-colors">Home</Link>
+                    <span className="mx-1.5 text-slate-400">/</span>
+                    <Link href={`/location/${city.slug}`} className="hover:text-blue-700 transition-colors">{city.name}</Link>
+                    <span className="mx-1.5 text-slate-400">/</span>
+                    <span className="text-slate-900 font-black">{service.title}</span>
                 </nav>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
-                    {/* Content Side */}
-                    <div className="space-y-12">
-                        {/* Title & Overview */}
-                        <FadeIn>
-                            <div className="flex flex-wrap gap-2 mb-6">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">
-                                    <Star className="w-3.5 h-3.5 fill-blue-600" />
-                                    Premium Service
-                                </div>
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-wider">
+                {/* Main Hero Card */}
+                <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-7 md:p-8 mb-6 shadow-xs">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        {/* Details */}
+                        <div className="lg:col-span-7 space-y-4">
+                            <div className="flex flex-wrap items-center gap-2">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[2px] bg-blue-100 border border-blue-200 text-blue-800 text-xs font-black uppercase tracking-wider">
                                     <MapPin className="w-3.5 h-3.5" />
                                     Available in {city.name}
-                                </div>
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[2px] bg-green-100 border border-green-200 text-green-800 text-xs font-black uppercase tracking-wider">
+                                    <ShieldCheck className="w-3.5 h-3.5" />
+                                    5-Year Warranty
+                                </span>
                             </div>
 
-                            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1] mb-8">
-                                {service.title} <span className="text-blue-600 block mt-2">in {city.name}</span>
+                            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                                {service.title} <span className="text-blue-700 block mt-1">in {city.name}</span>
                             </h1>
-                            <p className="text-xl text-slate-650 leading-relaxed font-medium mb-6">
-                                {service.fullDesc} Professional installation services serving all neighborhoods in {city.name}.
+
+                            <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
+                                {service.fullDesc} Professional on-site measurement and safety installation serving all residential and commercial zones in {city.name}.
                             </p>
+
                             {service.longDescription && (
-                                <p className="text-lg text-slate-500 leading-relaxed font-medium">
+                                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed pt-1">
                                     {service.longDescription}
                                 </p>
                             )}
 
-                            {/* Localized Insights Card */}
-                            {city.localInsight && (
-                                <FadeIn delay={0.15}>
-                                    <div className="bg-blue-50/50 rounded-3xl p-8 border border-blue-100/50 space-y-6">
-                                        <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                            <MapPin className="w-5 h-5 text-blue-600" />
-                                            Local Installation Insights for {city.name}
-                                        </h3>
-                                        <p className="text-slate-650 leading-relaxed font-medium">
-                                            {city.localInsight}
-                                        </p>
-                                        <p className="text-slate-500 font-medium">
-                                            <strong>Service Area Scope:</strong> {city.serviceArea}
-                                        </p>
-                                        {city.neighborhoods && (
-                                            <div className="pt-4 border-t border-blue-100">
-                                                <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-3">Serving Neighborhoods:</span>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {city.neighborhoods.map((nh) => (
-                                                        <span key={nh} className="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-slate-650 text-xs font-bold">
-                                                            {nh}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </FadeIn>
-                            )}
-                        </FadeIn>
-
-                        {/* Benefits Grid */}
-                        <FadeIn delay={0.1}>
-                            <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
-                                <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                                    <CheckCircle2 className="w-5 h-5 text-blue-600" /> Why Choose Us in {city.name}
-                                </h3>
-                                <ul className="space-y-4">
-                                    {(service.benefits || service.features).map((benefit, idx) => (
-                                        <li key={idx} className="flex items-start gap-4">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2.5 flex-shrink-0" />
-                                            <span className="text-slate-700 font-medium">{benefit}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </FadeIn>
-
-                        {/* Process Section */}
-                        {processSteps && (
-                            <FadeIn delay={0.2}>
-                                <h3 className="text-2xl font-bold text-slate-900 mb-6">Local Installation Process</h3>
-                                <div className="space-y-6">
-                                    {processSteps.map((step: any, idx: number) => (
-                                        <div key={idx} className="flex gap-4">
-                                            <div className="flex flex-col items-center">
-                                                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
-                                                    {idx + 1}
-                                                </div>
-                                                {idx !== processSteps.length - 1 && (
-                                                    <div className="w-px h-full bg-blue-100 my-2" />
-                                                )}
-                                            </div>
-                                            <div className="pb-6">
-                                                <h4 className="text-lg font-bold text-slate-900 mb-1">{step.step}</h4>
-                                                <p className="text-slate-500">{step.desc}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </FadeIn>
-                        )}
-
-                        {/* Specifications Table */}
-                        {service.specifications && (
-                            <FadeIn delay={0.3}>
-                                <div className="border rounded-2xl overflow-hidden">
-                                    <table className="w-full text-left text-sm">
-                                        <tbody className="divide-y divide-slate-100">
-                                            {service.specifications.map((spec: any, idx: number) => (
-                                                <tr key={idx} className="hover:bg-slate-50/50">
-                                                    <td className="p-4 font-semibold text-slate-900 bg-slate-50/30 w-1/3">{spec.label}</td>
-                                                    <td className="p-4 text-slate-600">{spec.value}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </FadeIn>
-                        )}
-
-                        {/* CTA Buttons */}
-                        <FadeIn delay={0.4}>
-                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                <Button size="lg" variant="primary" className="shadow-xl shadow-blue-200" asChild>
-                                    <Link href="/contact">Get Free Quote <ArrowRight className="ml-2 w-5 h-5" /></Link>
+                            {/* Direct Action Buttons */}
+                            <div className="flex flex-wrap gap-2.5 pt-3">
+                                <Button variant="call" size="default" asChild className="font-black text-xs h-10">
+                                    <a href={`tel:${city.phone.replace(/\s+/g, '')}`} className="flex items-center gap-1.5">
+                                        <Phone className="w-4 h-4 animate-pulse" />
+                                        <span>Call {city.name}: {city.phone}</span>
+                                    </a>
                                 </Button>
-                                <Button size="lg" variant="outline" asChild>
-                                    <a href={`tel:${city.phone.replace(/\s+/g, '')}`}><Phone className="mr-2 w-4 h-4" /> Call Local Expert</a>
+                                <Button variant="whatsapp" size="default" asChild className="font-black text-xs h-10">
+                                    <a href="https://wa.me/917200092393" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5">
+                                        <MessageCircle className="w-4 h-4" />
+                                        <span>WhatsApp Quote</span>
+                                    </a>
+                                </Button>
+                                <Button variant="primary" size="default" asChild className="font-black text-xs h-10">
+                                    <Link href="/contact">Book Free Site Visit</Link>
                                 </Button>
                             </div>
-                        </FadeIn>
+                        </div>
+
+                        {/* Photo */}
+                        <div className="lg:col-span-5 relative">
+                            <div className="aspect-[4/3] rounded-[3px] overflow-hidden border-2 border-slate-300 shadow-sm relative bg-slate-100">
+                                <Image
+                                    src={service.image || "/Invisible Pigeon Net.jpg"}
+                                    alt={`${service.title} in ${city.name}`}
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 100vw, 40vw"
+                                    className="object-cover"
+                                />
+                            </div>
+                            <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-[2px] text-xs text-blue-900 font-bold flex items-center gap-2">
+                                <Award className="w-4 h-4 text-blue-700 shrink-0" />
+                                <span>Serving all apartments, villas, and commercial buildings in {city.name}.</span>
+                            </div>
+                        </div>
                     </div>
-
-                    {/* Image Side */}
-                    <FadeIn direction="left" delay={0.2} className="relative sticky top-24">
-                        <div className="aspect-[4/3] rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl relative">
-                            <Image
-                                src={service.image || "/Invisible Pigeon Net.jpg"}
-                                alt={`${service.title} in ${city.name}`}
-                                fill
-                                priority
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                className="object-cover hover:scale-105 transition-transform duration-1000"
-                            />
-                        </div>
-                        {/* Decorative Badge */}
-                        <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-xl max-w-[200px] hidden md:block border border-slate-100">
-                            <div className="text-4xl font-bold text-blue-600 mb-1">#1</div>
-                            <div className="text-sm font-medium text-slate-500">Rated Service in {city.name}</div>
-                        </div>
-                    </FadeIn>
                 </div>
 
-                {/* Testimonials Section */}
-                {pageTestimonials.length > 0 && (
-                    <FadeIn delay={0.3} className="mt-32 max-w-5xl mx-auto">
-                        <div className="text-center mb-12">
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-3">Customer Reviews</span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight flex items-center justify-center gap-3">
-                                Verified Customer Feedback in {city.name}
-                            </h2>
-                            <p className="text-slate-500 font-medium mt-4">Read reviews from happy property owners in your area.</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {pageTestimonials.map((t, idx) => (
-                                <div key={idx} className="bg-slate-50 border border-slate-100 rounded-3xl p-8 relative flex flex-col justify-between hover:shadow-lg transition-shadow">
-                                    <div>
-                                        <div className="flex items-center gap-1 text-amber-400 mb-4">
-                                            {[...Array(t.rating)].map((_, i) => (
-                                                <Star key={i} className="w-5 h-5 fill-current" />
-                                            ))}
-                                        </div>
-                                        <p className="text-slate-650 leading-relaxed font-medium mb-6 italic">
-                                            "{t.text}"
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center justify-between pt-4 border-t border-slate-100/80">
-                                        <div>
-                                            <h4 className="font-bold text-slate-950">{t.name}</h4>
-                                            <p className="text-xs text-slate-400 font-semibold">{t.area}, {t.city}</p>
-                                        </div>
-                                        <span className="text-xs font-semibold text-slate-400 bg-white px-3 py-1 rounded-full border border-slate-200">{t.date}</span>
-                                    </div>
+                {/* Localized Insights Card */}
+                {city.localInsight && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 mb-6 shadow-xs">
+                        <h3 className="text-base sm:text-lg font-black text-slate-900 mb-2 flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-blue-700" />
+                            Local Installation Insights for {city.name}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-3">
+                            {city.localInsight}
+                        </p>
+                        <p className="text-xs text-slate-500 font-bold mb-4">
+                            <strong>Service Area Scope:</strong> {city.serviceArea}
+                        </p>
+                        {city.neighborhoods && (
+                            <div className="pt-3 border-t border-slate-200">
+                                <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-2">
+                                    Serving Neighborhoods in {city.name}:
+                                </span>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {city.neighborhoods.map((nh) => (
+                                        <span key={nh} className="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold rounded-[2px]">
+                                            {nh}
+                                        </span>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                    </FadeIn>
+                            </div>
+                        )}
+                    </div>
                 )}
 
-                {/* FAQ Section */}
-                {faqs.length > 0 && (
-                    <FadeIn delay={0.4} className="mt-32 max-w-4xl mx-auto">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight flex items-center justify-center gap-3">
-                                <HelpCircle className="w-8 h-8 text-blue-600" />
-                                Frequently Asked Questions
-                            </h2>
-                            <p className="text-slate-500 font-medium mt-4">Everything you need to know about our {service.title} in {city.name}.</p>
+                {/* Key Benefits & Process Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    {/* Key Benefits */}
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 shadow-xs">
+                        <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+                            <CheckCircle2 className="w-5 h-5 text-blue-700" />
+                            Why Choose Our {service.title} in {city.name}
+                        </h3>
+                        <ul className="space-y-2.5">
+                            {(service.benefits || service.features).map((benefit, idx) => (
+                                <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                                    <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
+                                    <span>{benefit}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Specifications */}
+                    {service.specifications && (
+                        <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 shadow-xs">
+                            <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+                                <ShieldCheck className="w-5 h-5 text-blue-700" />
+                                Material & Technical Specifications
+                            </h3>
+                            <div className="border border-slate-200 rounded-[2px] overflow-hidden">
+                                <table className="w-full text-left text-xs sm:text-sm">
+                                    <tbody className="divide-y divide-slate-200">
+                                        {service.specifications.map((spec: { label: string; value: string }, idx: number) => (
+                                            <tr key={idx} className="hover:bg-slate-50">
+                                                <td className="p-2.5 font-bold text-slate-900 bg-slate-100/60 w-2/5 border-r border-slate-200">
+                                                    {spec.label}
+                                                </td>
+                                                <td className="p-2.5 text-slate-700 font-medium">
+                                                    {spec.value}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div className="grid gap-6">
-                            {faqs.map((faq, i) => (
-                                <div key={i} className="bg-slate-50 border border-slate-100 rounded-2xl p-6 md:p-8">
-                                    <h4 className="text-xl font-bold text-slate-900 mb-3">{faq.question}</h4>
-                                    <p className="text-slate-650 leading-relaxed font-medium">{faq.answer}</p>
+                    )}
+                </div>
+
+                {/* Installation Process */}
+                {processSteps && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 mb-6 shadow-xs">
+                        <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">
+                            Local Installation Process in {city.name}
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                            {processSteps.map((step: { step: string; desc: string }, idx: number) => (
+                                <div key={idx} className="bg-slate-50 border border-slate-200 p-3.5 rounded-[2px] flex flex-col justify-between">
+                                    <div>
+                                        <div className="w-7 h-7 rounded-[2px] bg-blue-700 text-white font-black text-xs flex items-center justify-center mb-2">
+                                            {idx + 1}
+                                        </div>
+                                        <h4 className="text-xs sm:text-sm font-black text-slate-900 mb-1">{step.step}</h4>
+                                        <p className="text-xs text-slate-600 font-medium leading-relaxed">{step.desc}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
-                    </FadeIn>
+                    </div>
+                )}
+
+                {/* Testimonials */}
+                {pageTestimonials.length > 0 && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 mb-6 shadow-xs">
+                        <div className="mb-4 pb-2 border-b border-slate-200 flex items-center justify-between">
+                            <h3 className="text-lg font-black text-slate-900">
+                                Verified Customer Feedback in {city.name}
+                            </h3>
+                            <div className="flex items-center gap-1 text-amber-500 font-bold text-xs">
+                                <span>4.9 / 5.0 Rating</span>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {pageTestimonials.map((t, idx) => (
+                                <div key={idx} className="bg-slate-50 border border-slate-200 rounded-[2px] p-4 flex flex-col justify-between">
+                                    <div>
+                                        <div className="flex items-center gap-1 text-amber-400 mb-2">
+                                            {[...Array(t.rating)].map((_, i) => (
+                                                <Star key={i} className="w-4 h-4 fill-current" />
+                                            ))}
+                                        </div>
+                                        <p className="text-xs sm:text-sm text-slate-700 font-medium mb-3 italic">
+                                            &ldquo;{t.text}&rdquo;
+                                        </p>
+                                    </div>
+                                    <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
+                                        <div>
+                                            <span className="font-bold text-slate-900">{t.name}</span>
+                                            <span className="text-slate-500 ml-1">({t.area}, {t.city})</span>
+                                        </div>
+                                        <span className="text-[11px] text-slate-400">{t.date}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* FAQs */}
+                {faqs.length > 0 && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 shadow-xs">
+                        <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+                            <HelpCircle className="w-5 h-5 text-blue-700" />
+                            Frequently Asked Questions about {service.title} in {city.name}
+                        </h3>
+                        <div className="grid gap-3">
+                            {faqs.map((faq, i) => (
+                                <div key={i} className="bg-slate-50 border border-slate-200 rounded-[2px] p-4">
+                                    <h4 className="text-xs sm:text-sm font-black text-slate-900 mb-1.5">{faq.question}</h4>
+                                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">{faq.answer}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 )}
             </div>
         </div>

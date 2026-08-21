@@ -2,7 +2,6 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { FloatingButtons } from "@/components/ui/floating-buttons";
-import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -58,7 +57,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <Navbar />
-        <main className="flex-1 flex flex-col pt-16">
+        <main className="flex-1 flex flex-col pt-0">
           {children}
         </main>
         <FloatingButtons />

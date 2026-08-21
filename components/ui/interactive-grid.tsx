@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
-import { motion, useAnimationFrame, useMotionValue, useSpring } from "framer-motion"
+import { useAnimationFrame, useMotionValue, type MotionValue } from "framer-motion"
 
 interface InteractiveGridProps {
     className?: string
@@ -61,12 +61,12 @@ export const InteractiveGrid: React.FC<InteractiveGridProps> = ({
 
     const cellSize = dimensions.width / cellCount
     const cols = cellCount
-    const rows = Math.ceil(dimensions.height / cellSize)
+    const rows = Math.ceil(dimensions.height / (cellSize || 1))
 
-    const hLines = []
+    const hLines: { x: number; y: number; baseX: number; baseY: number }[][] = []
     for (let y = 0; y <= rows; y++) {
-        const points = []
-        const segments = 10 // Sub-divide lines for smoother waves
+        const points: { x: number; y: number; baseX: number; baseY: number }[] = []
+        const segments = 10
         for (let x = 0; x <= segments; x++) {
             points.push({
                 x: (x * dimensions.width) / segments,
@@ -78,9 +78,9 @@ export const InteractiveGrid: React.FC<InteractiveGridProps> = ({
         hLines.push(points)
     }
 
-    const vLines = []
+    const vLines: { x: number; y: number; baseX: number; baseY: number }[][] = []
     for (let x = 0; x <= cols; x++) {
-        const points = []
+        const points: { x: number; y: number; baseX: number; baseY: number }[] = []
         const segments = 10
         for (let y = 0; y <= segments; y++) {
             points.push({
@@ -147,9 +147,9 @@ const InteractivePath = ({
     amplitude,
 }: {
     points: { x: number; y: number; baseX: number; baseY: number }[]
-    mouseX: any
-    mouseY: any
-    time: any
+    mouseX: MotionValue<number>
+    mouseY: MotionValue<number>
+    time: MotionValue<number>
     repelRadius: number
     repelStrength: number
     amplitude: number
@@ -164,14 +164,12 @@ const InteractivePath = ({
         const t = time.get()
 
         const newPoints = points.map((p) => {
-            // 1. Base Animated Wave (Organic flow)
             const waveX = Math.sin(t + p.baseY * 0.01) * amplitude * 0.5
             const waveY = Math.cos(t + p.baseX * 0.01) * amplitude * 0.5
 
             const currentX = p.baseX + waveX
             const currentY = p.baseY + waveY
 
-            // 2. Mouse Repel
             const dx = currentX - mx
             const dy = currentY - my
             const distance = Math.sqrt(dx * dx + dy * dy)
@@ -198,7 +196,7 @@ const InteractivePath = ({
     return (
         <path
             ref={pathRef}
-            d="" // Initialize with empty path
+            d=""
             fill="none"
             stroke="currentColor"
             strokeWidth="0.8"

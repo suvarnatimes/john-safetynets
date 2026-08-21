@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { ArrowRight, MapPin, ShieldCheck, Phone } from "lucide-react"
+import { ArrowRight, MapPin, ShieldCheck, Phone, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { InteractiveGrid } from "@/components/ui/interactive-grid"
-import { FadeIn } from "@/components/ui/fade-in"
 import { ServiceCard } from "@/components/ui/service-card"
 import { services, cities, getCityBySlug } from "@/lib/data"
 
@@ -80,106 +78,121 @@ export default async function LocationPage(props: Props) {
     }
 
     return (
-        <main className="min-h-screen bg-white pt-32 pb-24 relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 pt-28 lg:pt-20 pb-16">
             {/* Inject JSON-LD Schema */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
             />
             
-            <InteractiveGrid className="opacity-20" />
-            <div className="container-large relative z-10">
-                {/* Header */}
-                <div className="max-w-4xl mb-16 mx-auto text-center">
-                    <FadeIn>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-6">
-                            <MapPin className="w-4 h-4" />
-                            {city.name} Headquarters
+            <div className="container-large">
+                {/* Header Card */}
+                <div className="bg-white border-2 border-slate-200 rounded-[3px] p-6 sm:p-8 mb-6 shadow-xs">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-blue-100 border border-blue-200 text-blue-800 text-xs font-black uppercase tracking-wider mb-3">
+                        <MapPin className="w-3.5 h-3.5" />
+                        {city.name} Branch Office & Service Operations
+                    </div>
+
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-3">
+                        Safety Net & Invisible Grill Installation in {city.name}
+                    </h1>
+
+                    <p className="text-xs sm:text-sm md:text-base text-slate-600 font-medium max-w-3xl leading-relaxed">
+                        {city.description} Our professional installation team is equipped for same-day on-site measurements and fast installation across all {city.name} neighborhoods.
+                    </p>
+
+                    <div className="flex flex-wrap gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                        <Button variant="call" size="sm" asChild className="h-8 text-xs font-black">
+                            <a href={`tel:${city.phone.replace(/\s+/g, '')}`} className="flex items-center gap-1.5">
+                                <Phone className="w-3.5 h-3.5" />
+                                <span>Call {city.name} Team: {city.phone}</span>
+                            </a>
+                        </Button>
+                        <Button variant="whatsapp" size="sm" asChild className="h-8 text-xs font-black">
+                            <a href="https://wa.me/917200092393" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5">
+                                <MessageCircle className="w-3.5 h-3.5" />
+                                <span>WhatsApp Quote</span>
+                            </a>
+                        </Button>
+                        <Button variant="primary" size="sm" asChild className="h-8 text-xs font-black">
+                            <Link href="/contact">Book Free Site Visit</Link>
+                        </Button>
+                    </div>
+                </div>
+
+                {/* Localized Insights Card */}
+                {city.localInsight && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 mb-6 shadow-xs">
+                        <div className="flex items-center gap-2 text-xs font-black text-blue-700 uppercase tracking-wider mb-2">
+                            <ShieldCheck className="w-4 h-4" />
+                            Local Climate & Architectural Insights for {city.name}
                         </div>
-                    </FadeIn>
-                    <FadeIn delay={0.1}>
-                        <h1 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight leading-[1] mb-6">
-                            Safety Net Solutions in <br /><span className="text-blue-600">{city.name}.</span>
-                        </h1>
-                    </FadeIn>
-                    <FadeIn delay={0.2}>
-                        <p className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-                            {city.description} Our professional team is available across {city.name} for immediate installation.
+                        <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-3">
+                            {city.localInsight}
                         </p>
-                    </FadeIn>
-                    
-                    <FadeIn delay={0.3} className="mt-8">
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <Button size="lg" variant="primary" className="shadow-xl shadow-blue-200" asChild>
-                                <Link href="/contact">Book Free Audit in {city.name} <ArrowRight className="ml-2 w-5 h-5" /></Link>
-                            </Button>
-                            <Button size="lg" variant="outline" asChild>
-                                <a href={`tel:${city.phone.replace(/\s+/g, '')}`}><Phone className="mr-2 w-4 h-4" /> Call Local Expert</a>
-                            </Button>
-                        </div>
-                    </FadeIn>
-                </div>
+                        <p className="text-xs text-slate-500 font-bold">
+                            <strong>Service Area Scope:</strong> {city.serviceArea}
+                        </p>
+                    </div>
+                )}
 
-                {/* Services Grid for Location */}
-                <div className="mt-24 mb-16 text-center">
-                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">Our Services in {city.name}</h2>
-                     <p className="text-slate-500 font-medium max-w-2xl mx-auto">We provide a comprehensive range of protection systems specifically designed for {city.name}'s architecture.</p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {/* We link to the specific city's service pages rather than global ones */}
-                    {services.map((service, i) => (
-                         <ServiceCard key={i} service={service} index={i} href={`/location/${city.slug}/${service.slug}`} />
-                    ))}
-                </div>
-
-                {/* Localized Neighborhoods and Insight Section */}
-                {city.neighborhoods && (
-                    <div className="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-slate-50 rounded-[3rem] p-12 md:p-20 border border-slate-100">
+                {/* Services Grid for City */}
+                <div className="mb-8">
+                    <div className="mb-4 pb-2 border-b border-slate-200 flex items-center justify-between">
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">
-                                Serving All Neighborhoods in {city.name}
+                            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                                Available Safety Net Services in {city.name}
                             </h2>
-                            <p className="text-lg text-slate-600 leading-relaxed font-medium mb-6">
-                                {city.localInsight}
-                            </p>
-                            <p className="text-slate-500 font-medium">
-                                {city.serviceArea}
-                            </p>
+                            <p className="text-xs text-slate-500 font-medium">Click any service to view localized specifications and pricing.</p>
                         </div>
-                        <div className="space-y-6">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block">Coverage Zones</span>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                {city.neighborhoods.map((nh) => (
-                                    <div key={nh} className="p-3 bg-white border border-slate-200/60 rounded-xl text-center shadow-sm">
-                                        <span className="text-slate-800 text-sm font-bold block">{nh}</span>
-                                        <span className="text-[10px] text-blue-600 font-bold uppercase mt-0.5 block">Active Zone</span>
-                                    </div>
-                                ))}
-                            </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+                        {services.map((service, i) => (
+                            <ServiceCard key={i} service={service} index={i} href={`/location/${city.slug}/${service.slug}`} />
+                        ))}
+                    </div>
+                </div>
+
+                {/* Neighborhoods Coverage Matrix */}
+                {city.neighborhoods && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 mb-8 shadow-xs">
+                        <h3 className="text-base sm:text-lg font-black text-slate-900 mb-3 pb-2 border-b border-slate-200 flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-blue-700" />
+                            Active Coverage Zones in {city.name}
+                        </h3>
+                        <p className="text-xs text-slate-600 font-medium mb-4">
+                            We provide immediate on-site inspections, laser measurements, and installations throughout the following localities:
+                        </p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                            {city.neighborhoods.map((nh) => (
+                                <div key={nh} className="p-2 bg-slate-50 border border-slate-200 rounded-[2px] text-center">
+                                    <span className="text-xs font-black text-slate-800 block truncate">{nh}</span>
+                                    <span className="text-[10px] font-black text-green-700 uppercase block">Active Zone</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 )}
 
-                {/* Quality Callout Localized */}
-                <FadeIn className="mt-32 bg-slate-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
-                    <InteractiveGrid className="opacity-30 text-blue-500" />
-                    <div className="relative z-10">
-                        <div className="w-16 h-16 bg-blue-600/20 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <ShieldCheck className="w-8 h-8" />
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter">
-                            #1 Rated in <span className="text-blue-500">{city.name}</span>
-                        </h2>
-                        <p className="text-xl text-slate-400 font-medium mb-12 max-w-2xl mx-auto">
-                            Join hundreds of households in {city.name} who have upgraded to our precision safety systems. Expert audit within 24 hours.
-                        </p>
-                        <Button size="lg" variant="white" className="rounded-xl px-12" asChild>
-                            <Link href="/contact">Get a Quote Today <ArrowRight className="ml-2 w-5 h-5" /></Link>
+                {/* Bottom Callout */}
+                <div className="bg-slate-900 border-2 border-slate-800 rounded-[3px] p-6 sm:p-8 text-white text-center shadow-lg">
+                    <h2 className="text-xl sm:text-3xl font-black mb-2 tracking-tight">
+                        #1 Rated Safety Net Installation in {city.name}
+                    </h2>
+                    <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl mx-auto mb-6">
+                        Join hundreds of verified households in {city.name} who trust John Enterprises for bird netting, child protection, and invisible grills.
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-3">
+                        <Button variant="call" size="lg" asChild className="h-11 font-black text-sm">
+                            <a href={`tel:${city.phone.replace(/\s+/g, '')}`}>Call {city.name}: {city.phone}</a>
+                        </Button>
+                        <Button variant="white" size="lg" asChild className="h-11 font-black text-sm">
+                            <Link href="/contact">Book Immediate Site Audit <ArrowRight className="ml-1.5 w-4 h-4" /></Link>
                         </Button>
                     </div>
-                </FadeIn>
+                </div>
             </div>
-        </main>
+        </div>
     )
 }

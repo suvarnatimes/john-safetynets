@@ -2,25 +2,25 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { Mail, MapPin, Phone, Send, ShieldCheck, Clock, Zap, MessageSquare } from "lucide-react"
-import { InteractiveGrid } from "@/components/ui/interactive-grid"
+import { Mail, MapPin, Phone, Send, MessageSquare, MessageCircle } from "lucide-react"
 
 export default function ContactClient() {
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
-        requirement: "Structural Audit (Invisible Grills)",
+        city: "Chennai",
+        requirement: "Balcony Safety Nets",
         message: ""
     })
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const { name, phone, requirement, message } = formData
+        const { name, phone, city, requirement, message } = formData
 
-        const text = `*New Inquiry from John Enterprises Portfolio*%0A%0A` +
+        const text = `*New Inquiry for John Enterprises*%0A%0A` +
             `*Name:* ${name}%0A` +
             `*Phone:* ${phone}%0A` +
+            `*City:* ${city}%0A` +
             `*Requirement:* ${requirement}%0A` +
             `*Message:* ${message}`
 
@@ -34,158 +34,143 @@ export default function ContactClient() {
     }
 
     return (
-        <main className="min-h-screen bg-white pt-32 pb-24 relative overflow-hidden">
-            <InteractiveGrid className="opacity-20" />
-
-            <div className="container-large relative z-10">
+        <div className="min-h-screen bg-slate-50 pt-28 lg:pt-20 pb-16">
+            <div className="container-large">
                 {/* Header */}
-                <div className="max-w-4xl mb-24">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-2 text-blue-600 font-bold uppercase tracking-widest text-sm mb-6"
-                    >
-                        <MessageSquare className="w-4 h-4" />
-                        Communication Hub
-                    </motion.div>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-8xl font-bold text-slate-900 tracking-tight leading-[0.9] mb-8"
-                    >
-                        Schedule a <br /><span className="text-blue-600">Safety Audit.</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-xl text-slate-500 font-medium max-w-2xl leading-relaxed"
-                    >
-                        Connect with our engineering team for immediate technical consultation and
-                        on-site safety assessments in Chennai, Pondicherry, and Trichy.
-                    </motion.p>
+                <div className="bg-white border-2 border-slate-200 rounded-[3px] p-6 sm:p-8 mb-6 shadow-xs">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[2px] bg-blue-100 border border-blue-200 text-blue-800 text-xs font-black uppercase tracking-wider mb-3">
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        Direct Customer Support & Site Bookings
+                    </div>
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-3">
+                        Schedule a Free Site Inspection & Measurement
+                    </h1>
+                    <p className="text-xs sm:text-sm md:text-base text-slate-600 font-medium max-w-3xl leading-relaxed">
+                        Contact our local safety engineers directly for same-day site visits, custom pricing quotes, and professional installation inquiries in Chennai, Pondicherry, and Trichy.
+                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-                    {/* Information Strip */}
-                    <div className="lg:col-span-4 space-y-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    {/* Left: Contact Info Strip */}
+                    <div className="lg:col-span-4 space-y-4">
                         {[
-                            { icon: <Phone className="w-6 h-6" />, label: "Direct Support", val: "+91 72000 92393", sub: "Available 9am - 8pm" },
-                            { icon: <Mail className="w-6 h-6" />, label: "Technical Inquiry", val: "johnsafetynets7@gmail.com", sub: "Response within 2 hours" },
-                            { icon: <MapPin className="w-6 h-6" />, label: "Service Hubs", val: "Chennai | Pondicherry | Trichy", sub: "Covering all city zones" }
+                            { icon: <Phone className="w-5 h-5 text-red-600" />, label: "Call Customer Support", val: "+91 72000 92393", sub: "Available 8:00 AM - 9:00 PM Daily", href: "tel:+917200092393" },
+                            { icon: <MessageCircle className="w-5 h-5 text-green-600" />, label: "WhatsApp Direct Chat", val: "+91 72000 92393", sub: "Instant Photo Estimate & Quotes", href: "https://wa.me/917200092393" },
+                            { icon: <Mail className="w-5 h-5 text-blue-600" />, label: "Email Inquiries", val: "johnsafetynets7@gmail.com", sub: "Quick Response Guaranteed", href: "mailto:johnsafetynets7@gmail.com" },
+                            { icon: <MapPin className="w-5 h-5 text-slate-800" />, label: "Service Hubs", val: "Chennai • Pondicherry • Trichy", sub: "Same-Day Site Visit Coverage", href: "#" }
                         ].map((item, i) => (
-                            <div key={i} className="tech-card rounded-[2rem] p-8 flex items-start gap-6">
-                                <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                            <div key={i} className="bg-white border-2 border-slate-200 rounded-[3px] p-4 shadow-xs flex items-start gap-3.5">
+                                <div className="w-10 h-10 rounded-[2px] bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
                                     {item.icon}
                                 </div>
-                                <div>
-                                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</div>
-                                    <div className="text-lg md:text-xl font-bold text-slate-900 mb-1 break-all">{item.val}</div>
-                                    <div className="text-xs font-semibold text-slate-500">{item.sub}</div>
+                                <div className="min-w-0">
+                                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-wider">{item.label}</div>
+                                    <a href={item.href} className="text-xs sm:text-sm font-black text-slate-900 hover:text-blue-700 block truncate">
+                                        {item.val}
+                                    </a>
+                                    <div className="text-[11px] text-slate-500 font-semibold">{item.sub}</div>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    {/* Form Complex */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="lg:col-span-8 bg-slate-50 border border-slate-200 rounded-[3rem] p-8 md:p-16 relative overflow-hidden"
-                    >
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
+                    {/* Right: Booking Form */}
+                    <div className="lg:col-span-8 bg-white border-2 border-slate-200 rounded-[3px] p-6 sm:p-8 shadow-xs">
+                        <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">
+                            Book Free Site Audit & Quote
+                        </h3>
+                        <form className="space-y-4" onSubmit={handleSubmit}>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+                                        Your Full Name *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="e.g. Ramesh Kumar"
+                                        className="w-full bg-white border-2 border-slate-300 rounded-[2px] px-3.5 py-2 text-slate-900 focus:outline-none focus:border-blue-700 font-bold text-xs sm:text-sm"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+                                        Phone / Mobile Number *
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="e.g. 9876543210"
+                                        className="w-full bg-white border-2 border-slate-300 rounded-[2px] px-3.5 py-2 text-slate-900 focus:outline-none focus:border-blue-700 font-bold text-xs sm:text-sm"
+                                    />
+                                </div>
+                            </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+                                        Select City *
+                                    </label>
+                                    <select
+                                        name="city"
+                                        value={formData.city}
+                                        onChange={handleChange}
+                                        className="w-full bg-white border-2 border-slate-300 rounded-[2px] px-3.5 py-2 text-slate-900 focus:outline-none focus:border-blue-700 font-bold text-xs sm:text-sm"
+                                    >
+                                        <option value="Chennai">Chennai</option>
+                                        <option value="Pondicherry">Pondicherry (Puducherry)</option>
+                                        <option value="Trichy">Trichy (Tiruchirappalli)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+                                        Required Service *
+                                    </label>
+                                    <select
+                                        name="requirement"
+                                        value={formData.requirement}
+                                        onChange={handleChange}
+                                        className="w-full bg-white border-2 border-slate-300 rounded-[2px] px-3.5 py-2 text-slate-900 focus:outline-none focus:border-blue-700 font-bold text-xs sm:text-sm"
+                                    >
+                                        <option value="Balcony Safety Nets">Balcony Safety Nets</option>
+                                        <option value="Invisible Grills">316 Marine-Grade Invisible Grills</option>
+                                        <option value="Pigeon Nets">Pigeon & Anti-Bird Nets</option>
+                                        <option value="Children Safety Nets">Children Safety Nets</option>
+                                        <option value="Pet Safety Nets">Pet Safety Nets</option>
+                                        <option value="Sports Practice Nets">Sports Practice Nets</option>
+                                        <option value="Duct Area Nets">Duct Area Safety Nets</option>
+                                        <option value="Cloth Hanger Services">Ceiling Cloth Hangers</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div>
-                                <h3 className="text-2xl font-bold text-slate-900 mb-8 tracking-tight uppercase tracking-tighter">Inquiry Portal</h3>
-                                <form className="space-y-6" onSubmit={handleSubmit}>
-                                    <div className="space-y-4">
-                                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Identification</label>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                value={formData.name}
-                                                onChange={handleChange}
-                                                required
-                                                placeholder="Legal Name"
-                                                className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm placeholder:text-slate-300"
-                                            />
-                                            <input
-                                                type="tel"
-                                                name="phone"
-                                                value={formData.phone}
-                                                onChange={handleChange}
-                                                required
-                                                placeholder="Phone Contact"
-                                                className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm placeholder:text-slate-300"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Requirement Matrix</label>
-                                        <select
-                                            name="requirement"
-                                            value={formData.requirement}
-                                            onChange={handleChange}
-                                            className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm"
-                                        >
-                                            <option>Structural Audit (Invisible Grills)</option>
-                                            <option>Safety Assessment (Pigeon Nets)</option>
-                                            <option>Professional Facility Netting</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Technical Brief</label>
-                                        <textarea
-                                            name="message"
-                                            value={formData.message}
-                                            onChange={handleChange}
-                                            required
-                                            rows={4}
-                                            placeholder="Specify measurements, location, or architectural specifics..."
-                                            className="w-full bg-white border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-semibold text-sm placeholder:text-slate-300 resize-none"
-                                        />
-                                    </div>
-
-                                    <Button type="submit" size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl py-7">
-                                        Initialize Protocol <Send className="ml-2 w-4 h-4" />
-                                    </Button>
-                                </form>
+                                <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+                                    Message / Address / Approx Dimensions
+                                </label>
+                                <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    rows={3}
+                                    placeholder="Enter your location / neighborhood, balcony size, or specific requirements..."
+                                    className="w-full bg-white border-2 border-slate-300 rounded-[2px] px-3.5 py-2 text-slate-900 focus:outline-none focus:border-blue-700 font-bold text-xs sm:text-sm resize-none"
+                                />
                             </div>
 
-                            <div className="space-y-12 flex flex-col justify-center border-l border-slate-200 pl-16 hidden md:block">
-                                <div className="space-y-8">
-                                    <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest">Protocol Assurance</h4>
-                                    {[
-                                        { icon: <ShieldCheck className="w-5 h-5 text-blue-600" />, title: "Technical Precision", text: "ISO certified measurement tools" },
-                                        { icon: <Clock className="w-5 h-5 text-blue-600" />, title: "Fast Deployment", text: "24-hour site visit guarantee" },
-                                        { icon: <Zap className="w-5 h-5 text-blue-600" />, title: "Expert Lead", text: "Consultation by senior engineers" }
-                                    ].map((check, i) => (
-                                        <div key={i} className="flex gap-4">
-                                            <div className="shrink-0 pt-1">{check.icon}</div>
-                                            <div>
-                                                <div className="text-sm font-bold text-slate-900 mb-1">{check.title}</div>
-                                                <div className="text-xs font-medium text-slate-500">{check.text}</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="p-6 rounded-2xl bg-blue-600 text-white">
-                                    <p className="text-xs font-bold leading-relaxed mb-4">"Our team is currently operating in high-priority zones across Chennai, Pondicherry, and Trichy."</p>
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Operational Status: High</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                            <Button type="submit" variant="primary" size="lg" className="w-full h-11 text-xs sm:text-sm font-black uppercase tracking-wider">
+                                <span>Submit & Connect on WhatsApp</span>
+                                <Send className="ml-2 w-4 h-4" />
+                            </Button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </main>
+        </div>
     )
 }

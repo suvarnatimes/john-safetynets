@@ -15,7 +15,7 @@ export async function getGalleryImages() {
             .max_results(100)
             .execute();
 
-        return results.resources.map((resource: any) => ({
+        return results.resources.map((resource: { secure_url: string; context?: { custom?: { caption?: string; category?: string; client?: string } }; public_id: string }) => ({
             src: resource.secure_url,
             title: resource.context?.custom?.caption || "Safety Installation",
             category: resource.context?.custom?.category || "Project",

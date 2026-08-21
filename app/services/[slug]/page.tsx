@@ -1,12 +1,10 @@
 import { services, getServiceFaqs, cities, getTestimonials } from "@/lib/data"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, CheckCircle2, Phone, Star, ArrowRight, HelpCircle, MapPin } from "lucide-react"
+import { ArrowLeft, CheckCircle2, Phone, Star, HelpCircle, MapPin, MessageCircle, ShieldCheck, Award } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import Image from "next/image"
-import { InteractiveGrid } from "@/components/ui/interactive-grid"
-import { FadeIn } from "@/components/ui/fade-in"
 
 type Props = {
     params: Promise<{ slug: string }>
@@ -104,249 +102,268 @@ export default async function ServicePage(props: Props) {
         .filter((s): s is typeof services[number] => s !== undefined)
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-24 relative">
+        <div className="min-h-screen bg-slate-50 pt-28 lg:pt-20 pb-16">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([serviceSchema, faqSchema]) }}
             />
-            <InteractiveGrid className="opacity-30 text-blue-100" />
-            <div className="container-large relative z-10">
-                <Link
-                    href="/services"
-                    className="inline-flex items-center text-slate-500 hover:text-blue-600 mb-12 transition-colors group font-medium"
-                >
-                    <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                    Back to All Services
-                </Link>
+            <div className="container-large">
+                {/* Back to Overview */}
+                <div className="mb-4">
+                    <Link
+                        href="/services"
+                        className="inline-flex items-center text-xs font-black uppercase tracking-wider text-slate-600 hover:text-blue-700 transition-colors"
+                    >
+                        <ArrowLeft className="w-3.5 h-3.5 mr-1" />
+                        Back to All Services
+                    </Link>
+                </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
-                    {/* Content Side */}
-                    <div className="space-y-12">
-                        {/* Title & Overview */}
-                        <FadeIn>
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-6">
-                                <Star className="w-3.5 h-3.5 fill-blue-600" />
-                                Premium Service
+                {/* Main Hero Card */}
+                <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-7 md:p-8 mb-8 shadow-xs">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        {/* Left Details */}
+                        <div className="lg:col-span-7 space-y-4">
+                            <div className="flex flex-wrap items-center gap-2">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[2px] bg-blue-100 border border-blue-200 text-blue-800 text-xs font-black uppercase tracking-wider">
+                                    <ShieldCheck className="w-3.5 h-3.5" />
+                                    Verified Safety Grade
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[2px] bg-green-100 border border-green-200 text-green-800 text-xs font-black uppercase tracking-wider">
+                                    <Star className="w-3.5 h-3.5 fill-green-700" />
+                                    5-Year Warranty
+                                </span>
                             </div>
 
-                            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1] mb-8">
+                            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
                                 {service.title}
                             </h1>
-                            <p className="text-xl text-slate-600 leading-relaxed font-medium mb-6">
+
+                            <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
                                 {service.fullDesc}
                             </p>
+
                             {service.longDescription && (
-                                <p className="text-lg text-slate-500 leading-relaxed">
+                                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed pt-1">
                                     {service.longDescription}
                                 </p>
                             )}
 
+                            {/* Direct Action Buttons */}
+                            <div className="flex flex-wrap gap-2.5 pt-3">
+                                <Button variant="call" size="default" asChild className="font-black text-xs h-10">
+                                    <a href="tel:+917200092393" className="flex items-center gap-1.5">
+                                        <Phone className="w-4 h-4 animate-pulse" />
+                                        <span>Call: +91 72000 92393</span>
+                                    </a>
+                                </Button>
+                                <Button variant="whatsapp" size="default" asChild className="font-black text-xs h-10">
+                                    <a href="https://wa.me/917200092393" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5">
+                                        <MessageCircle className="w-4 h-4" />
+                                        <span>WhatsApp Quote</span>
+                                    </a>
+                                </Button>
+                                <Button variant="outline" size="default" asChild className="font-black text-xs h-10">
+                                    <Link href="/contact">Book Free Site Visit</Link>
+                                </Button>
+                            </div>
+
                             {/* Service Available In Locations */}
-                            <div className="mt-8 pt-6 border-t border-slate-100">
-                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-3">Service Available In:</span>
-                                <div className="flex flex-wrap gap-3">
+                            <div className="pt-4 border-t border-slate-200">
+                                <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider block mb-2">
+                                    Book This Service In Your City:
+                                </span>
+                                <div className="flex flex-wrap gap-2">
                                     {cities.map((city) => (
                                         <Link
                                             key={city.slug}
                                             href={`/location/${city.slug}/${service.slug}`}
-                                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-sm font-semibold hover:border-blue-600 hover:text-blue-600 hover:bg-white transition-all shadow-sm"
+                                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-[2px] bg-slate-100 border border-slate-300 text-slate-800 text-xs font-black hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors shadow-2xs"
                                         >
-                                            <MapPin className="w-4 h-4 text-blue-600" />
-                                            {city.name}
+                                            <MapPin className="w-3.5 h-3.5" />
+                                            {city.name} Installation
                                         </Link>
                                     ))}
                                 </div>
                             </div>
-                        </FadeIn>
+                        </div>
 
-                        {/* Benefits Grid */}
-                        <FadeIn delay={0.1}>
-                            <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
-                                <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                                    <CheckCircle2 className="w-5 h-5 text-blue-600" /> Key Benefits
-                                </h3>
-                                <ul className="space-y-4">
-                                    {(service.benefits || service.features).map((benefit, idx) => (
-                                        <li key={idx} className="flex items-start gap-4">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2.5 flex-shrink-0" />
-                                            <span className="text-slate-700 font-medium">{benefit}</span>
-                                        </li>
-                                    ))}
-                                </ul>
+                        {/* Right Photo */}
+                        <div className="lg:col-span-5 relative">
+                            <div className="aspect-[4/3] rounded-[3px] overflow-hidden border-2 border-slate-300 shadow-sm relative bg-slate-100">
+                                <Image
+                                    src={service.image || "/Invisible Pigeon Net.jpg"}
+                                    alt={service.title}
+                                    fill
+                                    priority
+                                    sizes="(max-width: 1024px) 100vw, 40vw"
+                                    className="object-cover"
+                                />
                             </div>
-                        </FadeIn>
-
-                        {/* Process Section */}
-                        {processSteps && (
-                            <FadeIn delay={0.2}>
-                                <h3 className="text-2xl font-bold text-slate-900 mb-6">Installation Process</h3>
-                                <div className="space-y-6">
-                                    {processSteps.map((step: any, idx: number) => (
-                                        <div key={idx} className="flex gap-4">
-                                            <div className="flex flex-col items-center">
-                                                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
-                                                    {idx + 1}
-                                                </div>
-                                                {idx !== processSteps.length - 1 && (
-                                                    <div className="w-px h-full bg-blue-100 my-2" />
-                                                )}
-                                            </div>
-                                            <div className="pb-6">
-                                                <h4 className="text-lg font-bold text-slate-900 mb-1">{step.step}</h4>
-                                                <p className="text-slate-500">{step.desc}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </FadeIn>
-                        )}
-
-                        {/* Specifications Table */}
-                        {service.specifications && (
-                            <FadeIn delay={0.3}>
-                                <div className="border rounded-2xl overflow-hidden">
-                                    <table className="w-full text-left text-sm">
-                                        <tbody className="divide-y divide-slate-100">
-                                            {service.specifications.map((spec: any, idx: number) => (
-                                                <tr key={idx} className="hover:bg-slate-50/50">
-                                                    <td className="p-4 font-semibold text-slate-900 bg-slate-50/30 w-1/3">{spec.label}</td>
-                                                    <td className="p-4 text-slate-600">{spec.value}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </FadeIn>
-                        )}
-
-                        {/* CTA Buttons */}
-                        <FadeIn delay={0.4}>
-                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                <Button size="lg" variant="primary" className="shadow-xl shadow-blue-200" asChild>
-                                    <Link href="/contact">Get Free Quote <ArrowRight className="ml-2 w-5 h-5" /></Link>
-                                </Button>
-                                <Button size="lg" variant="outline" asChild>
-                                    <a href="tel:+917200092393"><Phone className="mr-2 w-4 h-4" /> Call Expert</a>
-                                </Button>
+                            <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-[2px] text-xs text-blue-900 font-bold flex items-center gap-2">
+                                <Award className="w-4 h-4 text-blue-700 shrink-0" />
+                                <span>Free on-site measurement & transparent quote within 2 hours.</span>
                             </div>
-                        </FadeIn>
+                        </div>
                     </div>
-
-                    {/* Image Side */}
-                    <FadeIn direction="left" delay={0.2} className="relative sticky top-24">
-                        <div className="aspect-[4/3] rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl relative">
-                            <Image
-                                src={service.image || "/Invisible Pigeon Net.jpg"}
-                                alt={service.title}
-                                fill
-                                priority
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                className="object-cover hover:scale-105 transition-transform duration-1000"
-                            />
-                        </div>
-                        {/* Decorative Badge */}
-                        <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-xl max-w-[200px] hidden md:block border border-slate-100">
-                            <div className="text-4xl font-bold text-blue-600 mb-1">5★</div>
-                            <div className="text-sm font-medium text-slate-500">Rated by 500+ Happy Customers</div>
-                        </div>
-                    </FadeIn>
                 </div>
 
-                {/* Testimonials Section */}
-                {pageTestimonials.length > 0 && (
-                    <FadeIn delay={0.3} className="mt-32 max-w-5xl mx-auto">
-                        <div className="text-center mb-12">
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-3">Customer Reviews</span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight flex items-center justify-center gap-3">
-                                What Our Customers Say
-                            </h2>
-                            <p className="text-slate-500 font-medium mt-4">Read verified reviews from satisfied clients.</p>
+                {/* Key Benefits & Process Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    {/* Key Benefits */}
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 shadow-xs">
+                        <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+                            <CheckCircle2 className="w-5 h-5 text-blue-700" />
+                            Key Benefits & Features
+                        </h3>
+                        <ul className="space-y-2.5">
+                            {(service.benefits || service.features).map((benefit, idx) => (
+                                <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                                    <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
+                                    <span>{benefit}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Specifications */}
+                    {service.specifications && (
+                        <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 shadow-xs">
+                            <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+                                <ShieldCheck className="w-5 h-5 text-blue-700" />
+                                Material & Technical Specifications
+                            </h3>
+                            <div className="border border-slate-200 rounded-[2px] overflow-hidden">
+                                <table className="w-full text-left text-xs sm:text-sm">
+                                    <tbody className="divide-y divide-slate-200">
+                                        {service.specifications.map((spec: { label: string; value: string }, idx: number) => (
+                                            <tr key={idx} className="hover:bg-slate-50">
+                                                <td className="p-2.5 font-bold text-slate-900 bg-slate-100/60 w-2/5 border-r border-slate-200">
+                                                    {spec.label}
+                                                </td>
+                                                <td className="p-2.5 text-slate-700 font-medium">
+                                                    {spec.value}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {pageTestimonials.map((t, idx) => (
-                                <div key={idx} className="bg-slate-50 border border-slate-100 rounded-3xl p-8 relative flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    )}
+                </div>
+
+                {/* Installation Process */}
+                {processSteps && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 mb-8 shadow-xs">
+                        <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">
+                            Professional 5-Step Installation Protocol
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                            {processSteps.map((step: { step: string; desc: string }, idx: number) => (
+                                <div key={idx} className="bg-slate-50 border border-slate-200 p-3.5 rounded-[2px] flex flex-col justify-between">
                                     <div>
-                                        <div className="flex items-center gap-1 text-amber-400 mb-4">
-                                            {[...Array(t.rating)].map((_, i) => (
-                                                <Star key={i} className="w-5 h-5 fill-current" />
-                                            ))}
+                                        <div className="w-7 h-7 rounded-[2px] bg-blue-700 text-white font-black text-xs flex items-center justify-center mb-2">
+                                            {idx + 1}
                                         </div>
-                                        <p className="text-slate-650 leading-relaxed font-medium mb-6 italic">
-                                            "{t.text}"
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center justify-between pt-4 border-t border-slate-100/80">
-                                        <div>
-                                            <h4 className="font-bold text-slate-950">{t.name}</h4>
-                                            <p className="text-xs text-slate-400 font-semibold">{t.area}, {t.city}</p>
-                                        </div>
-                                        <span className="text-xs font-semibold text-slate-400 bg-white px-3 py-1 rounded-full border border-slate-200">{t.date}</span>
+                                        <h4 className="text-xs sm:text-sm font-black text-slate-900 mb-1">{step.step}</h4>
+                                        <p className="text-xs text-slate-600 font-medium leading-relaxed">{step.desc}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    </FadeIn>
+                    </div>
                 )}
 
-                {/* Related Services */}
-                {related.length > 0 && (
-                    <FadeIn delay={0.4} className="mt-32 max-w-5xl mx-auto">
-                        <div className="text-center mb-12">
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-3">Explore More</span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-                                Related Safety Solutions
-                            </h2>
-                            <p className="text-slate-500 font-medium mt-4">Discover our other high-quality residential and commercial safety systems.</p>
+                {/* Testimonials */}
+                {pageTestimonials.length > 0 && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 mb-8 shadow-xs">
+                        <div className="mb-4 pb-2 border-b border-slate-200 flex items-center justify-between">
+                            <h3 className="text-lg font-black text-slate-900">
+                                Verified Customer Reviews
+                            </h3>
+                            <div className="flex items-center gap-1 text-amber-500 font-bold text-xs">
+                                <span>4.9 / 5.0 Rating</span>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {related.map((rel, idx) => (
-                                <Link 
-                                    key={idx} 
-                                    href={`/services/${rel.slug}`}
-                                    className="group bg-slate-50 hover:bg-white border border-slate-100 hover:border-blue-600/30 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
-                                >
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {pageTestimonials.map((t, idx) => (
+                                <div key={idx} className="bg-slate-50 border border-slate-200 rounded-[2px] p-4 flex flex-col justify-between">
                                     <div>
-                                        <div className="aspect-[16/10] rounded-xl overflow-hidden mb-4 relative bg-slate-250">
+                                        <div className="flex items-center gap-1 text-amber-400 mb-2">
+                                            {[...Array(t.rating)].map((_, i) => (
+                                                <Star key={i} className="w-4 h-4 fill-current" />
+                                            ))}
+                                        </div>
+                                        <p className="text-xs sm:text-sm text-slate-700 font-medium mb-3 italic">
+                                            &ldquo;{t.text}&rdquo;
+                                        </p>
+                                    </div>
+                                    <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
+                                        <div>
+                                            <span className="font-bold text-slate-900">{t.name}</span>
+                                            <span className="text-slate-500 ml-1">({t.area}, {t.city})</span>
+                                        </div>
+                                        <span className="text-[11px] text-slate-400">{t.date}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Related Safety Solutions */}
+                {related.length > 0 && (
+                    <div className="mb-8">
+                        <div className="mb-4 pb-2 border-b border-slate-200">
+                            <h3 className="text-lg font-black text-slate-900">
+                                Related Safety Systems
+                            </h3>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+                            {related.map((rel, idx) => (
+                                <div key={idx} className="bg-white border-2 border-slate-200 hover:border-blue-600 rounded-[3px] p-3.5 shadow-xs flex flex-col justify-between transition-all">
+                                    <div>
+                                        <div className="aspect-[16/10] rounded-[2px] overflow-hidden mb-2.5 relative bg-slate-100 border border-slate-200">
                                             {rel.image && (
                                                 <Image 
                                                     src={rel.image}
                                                     alt={rel.title}
                                                     fill
-                                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                    className="object-cover"
                                                 />
                                             )}
                                         </div>
-                                        <h3 className="font-bold text-slate-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">{rel.title}</h3>
-                                        <p className="text-sm text-slate-500 line-clamp-2">{rel.desc}</p>
+                                        <h4 className="font-black text-slate-900 text-sm mb-1 line-clamp-1">{rel.title}</h4>
+                                        <p className="text-xs text-slate-600 line-clamp-2">{rel.desc}</p>
                                     </div>
-                                    <div className="flex items-center text-blue-600 font-semibold text-sm mt-4 group-hover:translate-x-1 transition-transform">
-                                        Learn More <ArrowRight className="w-4 h-4 ml-1" />
+                                    <div className="mt-3 pt-2 border-t border-slate-100">
+                                        <Button variant="primary" size="sm" asChild className="w-full text-xs h-7">
+                                            <Link href={`/services/${rel.slug}`}>Learn More</Link>
+                                        </Button>
                                     </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </FadeIn>
-                )}
-
-                {/* FAQ Section */}
-                {faqs.length > 0 && (
-                    <FadeIn delay={0.4} className="mt-32 max-w-4xl mx-auto">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight flex items-center justify-center gap-3">
-                                <HelpCircle className="w-8 h-8 text-blue-600" />
-                                Frequently Asked Questions
-                            </h2>
-                            <p className="text-slate-500 font-medium mt-4">Common questions about our {service.title}.</p>
-                        </div>
-                        <div className="grid gap-6">
-                            {faqs.map((faq, i) => (
-                                <div key={i} className="bg-slate-50 border border-slate-100 rounded-2xl p-6 md:p-8">
-                                    <h4 className="text-xl font-bold text-slate-900 mb-3">{faq.question}</h4>
-                                    <p className="text-slate-600 leading-relaxed font-medium">{faq.answer}</p>
                                 </div>
                             ))}
                         </div>
-                    </FadeIn>
+                    </div>
+                )}
+
+                {/* FAQs */}
+                {faqs.length > 0 && (
+                    <div className="bg-white border-2 border-slate-200 rounded-[3px] p-5 sm:p-6 shadow-xs">
+                        <h3 className="text-lg font-black text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+                            <HelpCircle className="w-5 h-5 text-blue-700" />
+                            Frequently Asked Questions
+                        </h3>
+                        <div className="grid gap-3">
+                            {faqs.map((faq, i) => (
+                                <div key={i} className="bg-slate-50 border border-slate-200 rounded-[2px] p-4">
+                                    <h4 className="text-xs sm:text-sm font-black text-slate-900 mb-1.5">{faq.question}</h4>
+                                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">{faq.answer}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 )}
             </div>
         </div>

@@ -36,8 +36,8 @@
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
 
-  --primary: 221 83% 53%;
-  /* Electric Blue #2563EB */
+  --primary: 224 85% 48%;
+  /* Vivid Saturated Electric/Royal Blue #1d4ed8 */
   --primary-foreground: 210 40% 98%;
 
   --secondary: 210 40% 96.1%;
@@ -52,12 +52,12 @@
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221 83% 53%;
+  --border: 214.3 31.8% 86%;
+  --input: 214.3 31.8% 86%;
+  --ring: 224 85% 48%;
 
-  --radius: 0rem;
-  /* Modern Tech - Very Sharp or Large */
+  --radius: 0.1875rem;
+  /* Dense Boxy Corner Radius: 3px */
 }
 
 .dark {
@@ -106,33 +106,66 @@
   h4,
   h5,
   h6 {
-    @apply font-extrabold tracking-tight text-slate-900;
+    @apply font-black tracking-tight text-slate-900;
     font-family: var(--font-outfit), sans-serif;
   }
 }
 
 @layer utilities {
   .container-large {
-    @apply max-w-[1400px] mx-auto px-6 md:px-12;
+    @apply max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8;
+  }
+
+  .dense-card {
+    @apply bg-white border border-slate-300 rounded-[3px] shadow-sm transition-all duration-200 hover:border-blue-600 hover:shadow-md;
+  }
+
+  .dense-box {
+    @apply border border-slate-300 bg-white rounded-[3px] p-4;
+  }
+
+  .dense-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-[2px] text-xs font-black uppercase tracking-wider;
   }
 
   .tech-card {
-    @apply bg-white border border-slate-200 transition-all duration-300 hover:border-primary hover:shadow-xl;
+    @apply bg-white border border-slate-300 rounded-[3px] transition-all duration-200 hover:border-blue-600 hover:shadow-md;
   }
 
   .glass-tech {
-    @apply bg-white/70 backdrop-blur-md border border-white/20;
+    @apply bg-white/90 backdrop-blur-md border border-slate-300 rounded-[3px];
   }
 
   .gradient-text-tech {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900;
+    @apply text-slate-900;
   }
 
   .btn-electric {
-    @apply bg-primary text-white hover:bg-primary/90 transition-all duration-300;
+    @apply bg-blue-600 text-white font-bold rounded-[3px] hover:bg-blue-700 transition-colors shadow-sm;
   }
 
   .section-padding {
-    @apply py-24 md:py-32;
+    @apply py-8 md:py-14;
+  }
+
+  .section-compact {
+    @apply py-6 md:py-10;
+  }
+
+  .animate-marquee {
+    display: inline-flex;
+    white-space: nowrap;
+    width: max-content;
+    animation: marquee 24s linear infinite;
+    will-change: transform;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }

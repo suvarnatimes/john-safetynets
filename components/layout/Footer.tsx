@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Shield, Phone, Mail, MapPin, Instagram, Facebook, Twitter, ArrowUp } from "lucide-react"
+import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, ArrowUp } from "lucide-react"
 
 export default function Footer() {
     const scrollToTop = () => {
@@ -10,13 +10,13 @@ export default function Footer() {
     }
 
     return (
-        <footer className="bg-slate-50 border-t border-slate-200 py-16 md:py-24">
+        <footer className="bg-slate-900 text-slate-300 border-t-4 border-blue-600 py-10 md:py-14">
             <div className="container-large">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
-                    {/* Brand */}
-                    <div className="lg:col-span-3 space-y-6">
-                        <Link href="/" className="flex items-center gap-2 group">
-                            <div className="relative w-10 h-10 transition-transform group-hover:scale-110">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-8 mb-10 pb-10 border-b border-slate-800">
+                    {/* Column 1: Brand & Bio */}
+                    <div className="lg:col-span-4 space-y-4">
+                        <Link href="/" className="flex items-center gap-2.5 group">
+                            <div className="relative w-10 h-10 bg-white rounded-[2px] p-0.5">
                                 <Image
                                     src="/logo.png"
                                     alt="John Enterprises Logo"
@@ -24,37 +24,52 @@ export default function Footer() {
                                     className="object-contain"
                                 />
                             </div>
-                            <span className="text-xl font-bold tracking-tight text-slate-900">John Enterprises</span>
+                            <div className="flex flex-col">
+                                <span className="text-lg font-black tracking-tight text-white group-hover:text-blue-400 transition-colors">
+                                    John Enterprises
+                                </span>
+                                <span className="text-[10px] font-black text-yellow-400 uppercase tracking-widest leading-none">
+                                    Balcony Safety & Pigeon Nets
+                                </span>
+                            </div>
                         </Link>
-                        <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
-                            Premium safety solutions engineered for precision. South India's leading provider of invisible grills and professional netting systems.
+
+                        <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+                            South India&apos;s most trusted provider of premium invisible grills, anti-pigeon balcony nets, child safety nets, and sports practice netting systems across Chennai, Pondicherry, and Trichy.
                         </p>
-                        <div className="flex items-center gap-3">
+
+                        <div className="flex items-center gap-2 pt-1">
                             {[
-                                { Icon: Instagram, href: "https://instagram.com/johnenterprises_safetynets" },
-                                { Icon: Facebook, href: "https://facebook.com/johnenterprisessafetynets" },
-                                { Icon: Twitter, href: "https://twitter.com/johnsafetynets" }
+                                { Icon: Instagram, href: "https://instagram.com/johnenterprises_safetynets", label: "Instagram" },
+                                { Icon: Facebook, href: "https://facebook.com/johnenterprisessafetynets", label: "Facebook" },
+                                { Icon: Twitter, href: "https://twitter.com/johnsafetynets", label: "Twitter" }
                             ].map((social, i) => (
                                 <a
                                     key={i}
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:border-blue-600 hover:text-blue-600 hover:bg-white transition-all shadow-sm"
+                                    aria-label={social.label}
+                                    className="w-8 h-8 rounded-[3px] border border-slate-700 bg-slate-800 flex items-center justify-center text-slate-300 hover:border-blue-500 hover:text-white hover:bg-blue-600 transition-all shadow-xs"
                                 >
-                                    <social.Icon className="w-5 h-5" />
+                                    <social.Icon className="w-4 h-4" />
                                 </a>
                             ))}
                         </div>
                     </div>
 
-                    {/* Quick Links */}
+                    {/* Column 2: Quick Links */}
                     <div className="lg:col-span-2">
-                        <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Company</h4>
-                        <ul className="space-y-4">
+                        <h4 className="text-xs font-black text-yellow-400 uppercase tracking-widest mb-3.5 pb-1 border-b border-slate-800">
+                            Quick Links
+                        </h4>
+                        <ul className="space-y-2 text-xs font-bold">
                             {["Home", "About", "Services", "Gallery", "Blog", "Contact"].map((link) => (
                                 <li key={link}>
-                                    <Link href={link === "Home" ? "/" : `/${link.toLowerCase()}`} className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                                    <Link
+                                        href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+                                        className="text-slate-400 hover:text-white hover:underline transition-colors block"
+                                    >
                                         {link}
                                     </Link>
                                 </li>
@@ -62,19 +77,26 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Services */}
-                    <div className="lg:col-span-2">
-                        <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Services</h4>
-                        <ul className="space-y-4">
+                    {/* Column 3: Core Services */}
+                    <div className="lg:col-span-3">
+                        <h4 className="text-xs font-black text-yellow-400 uppercase tracking-widest mb-3.5 pb-1 border-b border-slate-800">
+                            Our Services
+                        </h4>
+                        <ul className="space-y-2 text-xs font-bold">
                             {[
-                                { label: "Invisible Grills", href: "/services/invisible-grill-balcony-safety-nets" },
-                                { label: "Pigeon Nets", href: "/services/invisible-pigeon-net" },
-                                { label: "Sports Nets", href: "/services/sports-practice-nets" },
-                                { label: "Children Safety", href: "/services/invisible-childrens-safety" },
-                                { label: "Monkey Nets", href: "/services/monkey-safety-nets" },
+                                { label: "Invisible Balcony Grills", href: "/services/invisible-grill-balcony-safety-nets" },
+                                { label: "Invisible Pigeon Nets", href: "/services/invisible-pigeon-net" },
+                                { label: "Children's Safety Nets", href: "/services/invisible-childrens-safety" },
+                                { label: "Sports Practice Nets", href: "/services/sports-practice-nets" },
+                                { label: "Duct Area Safety Nets", href: "/services/duct-area-nets" },
+                                { label: "Ceiling Cloth Hangers", href: "/services/cloth-hanger-services" },
+                                { label: "Pets Safety Nets", href: "/services/pets-safety-nets" },
                             ].map((service) => (
                                 <li key={service.label}>
-                                    <Link href={service.href} className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
+                                    <Link
+                                        href={service.href}
+                                        className="text-slate-400 hover:text-white hover:underline transition-colors block"
+                                    >
                                         {service.label}
                                     </Link>
                                 </li>
@@ -82,92 +104,117 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Locations */}
-                    <div className="lg:col-span-2">
-                        <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Locations</h4>
-                        <ul className="space-y-4">
+                    {/* Column 4: Locations & Popular Local Nets (SEO Crosslinks) */}
+                    <div className="lg:col-span-3">
+                        <h4 className="text-xs font-black text-yellow-400 uppercase tracking-widest mb-3.5 pb-1 border-b border-slate-800">
+                            Service Locations
+                        </h4>
+                        <ul className="space-y-2 text-xs font-bold mb-4">
                             {[
-                                { name: "Chennai", address: "Anna Nagar, Chennai" },
-                                { name: "Pondicherry", address: "White Town, Puducherry" },
-                                { name: "Trichy", address: "Thillai Nagar, Trichy" }
+                                { name: "Chennai Hub", href: "/location/chennai", address: "Anna Nagar, Chennai" },
+                                { name: "Pondicherry Hub", href: "/location/pondicherry", address: "White Town, Puducherry" },
+                                { name: "Trichy Hub", href: "/location/trichy", address: "Thillai Nagar, Trichy" }
                             ].map((loc) => (
                                 <li key={loc.name}>
-                                    <Link href={`/location/${loc.name.toLowerCase()}`} className="text-sm text-slate-500 hover:text-blue-600 transition-colors block font-semibold">
+                                    <Link
+                                        href={loc.href}
+                                        className="text-slate-300 hover:text-white transition-colors block font-black"
+                                    >
                                         {loc.name}
                                     </Link>
-                                    <span className="text-[10px] text-slate-400 block mt-0.5 leading-tight">{loc.address}</span>
+                                    <span className="text-[11px] text-slate-500 block leading-none">{loc.address}</span>
                                 </li>
                             ))}
                         </ul>
-                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-6 mb-3">Popular Local Nets</h4>
-                        <ul className="space-y-2">
-                            <li>
-                                <Link href="/location/chennai/invisible-pigeon-net" className="text-xs text-slate-500 hover:text-blue-600 transition-colors">
-                                    Chennai Pigeon Nets
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/location/pondicherry/invisible-grill-balcony-safety-nets" className="text-xs text-slate-500 hover:text-blue-600 transition-colors">
-                                    Pondicherry Grills
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/location/trichy/sports-practice-nets" className="text-xs text-slate-500 hover:text-blue-600 transition-colors">
-                                    Trichy Sports Nets
-                                </Link>
-                            </li>
-                        </ul>
+
+                        {/* Popular Local Nets SEO Cross-Linking */}
+                        <div className="pt-2 border-t border-slate-800">
+                            <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+                                Popular Local Nets
+                            </h5>
+                            <ul className="space-y-1.5 text-xs">
+                                <li>
+                                    <Link
+                                        href="/location/chennai/invisible-pigeon-net"
+                                        className="text-slate-400 hover:text-blue-400 transition-colors block"
+                                    >
+                                        • Chennai Pigeon Nets
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/location/pondicherry/invisible-grill-balcony-safety-nets"
+                                        className="text-slate-400 hover:text-blue-400 transition-colors block"
+                                    >
+                                        • Pondicherry Invisible Grills
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/location/trichy/sports-practice-nets"
+                                        className="text-slate-400 hover:text-blue-400 transition-colors block"
+                                    >
+                                        • Trichy Sports Nets
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Direct Contact Bar */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4 px-5 bg-slate-950 border border-slate-800 rounded-[3px] mb-8">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-[2px] bg-red-600 flex items-center justify-center text-white shrink-0">
+                            <Phone className="w-4 h-4" />
+                        </div>
+                        <div>
+                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Phone Call</div>
+                            <a href="tel:+917200092393" className="text-xs sm:text-sm font-black text-white hover:text-blue-400">
+                                +91 72000 92393
+                            </a>
+                        </div>
                     </div>
 
-                    {/* Contact */}
-                    <div className="lg:col-span-3">
-                        <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Reach Us</h4>
-                        <div className="space-y-5">
-                            <div className="flex items-start gap-4">
-                                <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm shrink-0">
-                                    <Phone className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Call Today</p>
-                                    <p className="text-sm font-bold text-slate-900">+91 72000 92393</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-4">
-                                <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm shrink-0">
-                                    <Mail className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Email Support</p>
-                                    <p className="text-sm font-bold text-slate-900">johnsafetynets7@gmail.com</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-4">
-                                <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-blue-600 shadow-sm shrink-0">
-                                    <MapPin className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Office Hubs</p>
-                                    <p className="text-xs font-semibold text-slate-650">
-                                        Chennai | Puducherry | Trichy
-                                    </p>
-                                </div>
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-[2px] bg-blue-600 flex items-center justify-center text-white shrink-0">
+                            <Mail className="w-4 h-4" />
+                        </div>
+                        <div>
+                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Email Inquiry</div>
+                            <a href="mailto:johnsafetynets7@gmail.com" className="text-xs sm:text-sm font-black text-white hover:text-blue-400 truncate block">
+                                johnsafetynets7@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-[2px] bg-green-600 flex items-center justify-center text-white shrink-0">
+                            <MapPin className="w-4 h-4" />
+                        </div>
+                        <div>
+                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Service Coverage</div>
+                            <div className="text-xs sm:text-sm font-bold text-white">
+                                Chennai • Pondicherry • Trichy
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <p className="text-xs font-semibold text-slate-400">
-                        © 2024 John Enterprises. All rights reserved. | Developed by <span className="text-blue-600 font-bold uppercase tracking-tighter">AltarVision</span>
+                {/* Copyright & Disclaimer Bar */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-semibold">
+                    <p>
+                        © {new Date().getFullYear()} John Enterprises. All rights reserved. Professional Safety Netting & Invisible Grills.
                     </p>
-                    <div className="flex items-center gap-8">
-                        <Link href="#" className="text-xs font-semibold text-slate-400 hover:text-blue-600 transition-colors">Privacy Policy</Link>
-                        <Link href="#" className="text-xs font-semibold text-slate-400 hover:text-blue-600 transition-colors">Terms of Service</Link>
+                    <div className="flex items-center gap-4">
+                        <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+                        <Link href="/services" className="hover:text-white transition-colors">Services</Link>
                         <button
                             onClick={scrollToTop}
-                            className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:border-blue-600 hover:text-blue-600 transition-all shadow-sm group"
+                            aria-label="Scroll back to top"
+                            className="w-8 h-8 rounded-[2px] bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white flex items-center justify-center border border-slate-700 transition-colors shadow-xs"
                         >
-                            <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+                            <ArrowUp className="w-4 h-4" />
                         </button>
                     </div>
                 </div>

@@ -1,12 +1,9 @@
 "use client"
 
-import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { ShieldCheck, ArrowRight } from "lucide-react"
-import { FadeIn } from "./fade-in"
-
-import { useState } from "react"
+import { Phone, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 interface Service {
     slug: string
@@ -18,106 +15,58 @@ interface Service {
 
 interface ServiceCardProps {
     service: Service
-    index: number
+    index?: number
     href?: string
 }
 
-export function ServiceCard({ service, index, href }: ServiceCardProps) {
-    const [isHovered, setIsHovered] = useState(false)
+export function ServiceCard({ service, href }: ServiceCardProps) {
+    const targetHref = href || `/services/${service.slug}`
 
     return (
-        <FadeIn delay={index * 0.1}>
-            <div
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                className="group relative h-[500px] rounded-[2.5rem] overflow-hidden border border-slate-200/60 bg-white shadow-sm hover:shadow-2xl transition-all duration-700 hover:-translate-y-3"
-            >
-                {/* Background Image with Zoom Effect */}
-                <div className="absolute inset-0 h-full w-full overflow-hidden">
-                    <Image
-                        src={service.image}
-                        alt={service.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        quality={85}
-                        className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-                    />
-                    {/* Subtle Overlay Grid */}
-                    <div className="absolute inset-0 opacity-[0.03] bg-[url('/grid.svg')] bg-center group-hover:opacity-[0.05] transition-opacity duration-700" />
-
-                    {/* Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent translate-y-[65%] group-hover:translate-y-[60%] transition-transform duration-700" />
+        <div className="group bg-white border-2 border-slate-200 hover:border-blue-600 rounded-[3px] overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 flex flex-col h-full">
+            {/* Image Container */}
+            <div className="relative aspect-[16/11] w-full overflow-hidden bg-slate-100 border-b border-slate-200">
+                <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    quality={80}
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute top-2 left-2 bg-blue-600 text-white text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-[2px] shadow">
+                    Verified
                 </div>
-
-                {/* Floating Glass Content Card */}
-                <div className="absolute inset-x-6 bottom-6 p-8 rounded-[2rem] bg-white/40 backdrop-blur-xl border border-white/40 shadow-xl overflow-hidden group-hover:bg-white/60 transition-all duration-500">
-                    {/* Glow Effect */}
-                    <div className="absolute -top-24 -left-24 w-48 h-48 bg-blue-400/20 blur-[80px] rounded-full group-hover:bg-blue-400/30 transition-colors duration-500" />
-
-                    <div className="relative z-10">
-                        <motion.div
-                            initial={false}
-                            animate={{
-                                height: isHovered ? "auto" : 0,
-                                opacity: isHovered ? 1 : 0,
-                                marginBottom: isHovered ? 16 : 0
-                            }}
-                            transition={{
-                                duration: 0.5,
-                                ease: [0.21, 0.47, 0.32, 0.98]
-                            }}
-                            className="overflow-hidden"
-                        >
-                            <div className="flex items-start justify-between">
-                                <div className="w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                                    <ShieldCheck className="w-6 h-6 text-blue-600" />
-                                </div>
-                                <div className="text-[10px] font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase tracking-widest border border-blue-100 shadow-sm opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
-                                    Premium Grade
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        <h3 className="text-2xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-blue-700 transition-colors">
-                            {service.title}
-                        </h3>
-
-                        <motion.div
-                            initial={false}
-                            animate={{
-                                height: isHovered ? "auto" : 0,
-                                opacity: isHovered ? 1 : 0,
-                                marginBottom: isHovered ? 24 : 0
-                            }}
-                            transition={{
-                                duration: 0.5,
-                                ease: [0.21, 0.47, 0.32, 0.98]
-                            }}
-                            className="overflow-hidden"
-                        >
-                            <p className="text-slate-600 font-medium line-clamp-2 leading-relaxed">
-                                {service.desc}
-                            </p>
-                        </motion.div>
-
-                        <div className="flex items-center justify-between">
-                            <Link
-                                href={href || `/services/${service.slug}`}
-                                className="inline-flex items-center gap-2 text-slate-900 font-bold text-sm tracking-tight group/link"
-                            >
-                                Explore Solution
-                                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover/link:bg-blue-600 group-hover/link:text-white transition-all duration-300">
-                                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" />
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Hover Border Effect */}
-                <div className="absolute inset-0 border-2 border-blue-600/0 group-hover:border-blue-600/20 rounded-[2.5rem] transition-colors duration-700 pointer-events-none" />
             </div>
-        </FadeIn>
+
+            {/* Content Container */}
+            <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-3 bg-white">
+                <div>
+                    <h3 className="text-base font-black text-slate-900 leading-snug group-hover:text-blue-700 transition-colors line-clamp-1 mb-1.5">
+                        <Link href={targetHref}>
+                            {service.title}
+                        </Link>
+                    </h3>
+                    <p className="text-xs text-slate-600 font-medium line-clamp-2 leading-relaxed">
+                        {service.desc}
+                    </p>
+                </div>
+
+                {/* Dense Action Row */}
+                <div className="pt-2 border-t border-slate-100 flex items-center gap-2">
+                    <Button variant="primary" size="sm" asChild className="flex-1 text-xs py-1.5 h-8">
+                        <Link href={targetHref} className="flex items-center justify-center gap-1">
+                            <span>View Details</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                    </Button>
+                    <Button variant="call" size="sm" asChild className="px-2.5 h-8">
+                        <a href="tel:+917200092393" aria-label={`Call for ${service.title}`}>
+                            <Phone className="w-3.5 h-3.5" />
+                        </a>
+                    </Button>
+                </div>
+            </div>
+        </div>
     )
 }
